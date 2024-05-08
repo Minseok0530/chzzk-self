@@ -4,6 +4,7 @@ import Menu from '../components/menu';
 import Video from 'next-video';
 import ReactPlayer from 'react-player';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export default function Home() {
   const [isWindow, setIsWindow] = useState<boolean>(false);
@@ -28,15 +29,18 @@ export default function Home() {
           <div>로그인</div>
         </div>
         <div>
-          <Video
-            src={''}
-            autoPlay
-            muted
-            loop
-            playsInline
-            controls={false}
-            className="h-80"
-          />
+          {isWindow && (
+            <ReactPlayer
+              url={'https://www.youtube.com/watch?v=Qi9-K7M4K_U'}
+              width="100%"
+              height="22rem"
+              playing={true}
+              muted={true}
+              loop={true}
+              controls={false}
+              onRewind={true}
+            />
+          )}
         </div>
         <div>
           <div>이 라이브 어떤가요</div>

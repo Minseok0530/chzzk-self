@@ -1,4 +1,8 @@
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
 export default function Menu() {
+  const router = useRouter();
   return (
     <div className="flex flex-col">
       <h1>Chzzk</h1>
@@ -15,7 +19,12 @@ export default function Menu() {
           </span>
           <div>다시보기</div>
         </button>
-        <button className="border-black border mt-2">
+        <button
+          className="border-black border mt-2"
+          onClick={() => {
+            router.push('@/app/Page/all-live');
+          }}
+        >
           <span className="material-symbols-outlined">grid_view</span>
           <div>카테고리</div>
         </button>
