@@ -20,7 +20,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="bg-gray-600 text-white">{children}</body>
+      <body className="bg-[#141517] text-white">{children}</body>
     </html>
   );
 }
