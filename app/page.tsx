@@ -59,7 +59,9 @@ export default function Home() {
               </span>
             </button>
             <button className="mr-2">
-              <span className="material-symbols-outlined">light_mode</span>
+              <span className="material-symbols-outlined text-sm">
+                light_mode
+              </span>
             </button>
             <button className="border border-gray-700 rounded-lg w-20 h-10">
               로그인
@@ -85,7 +87,7 @@ export default function Home() {
           <div className="flex">
             {isWindow && (
               <ReactPlayer
-                url={'https://www.youtube.com/watch?v=Qi9-K7M4K_U'}
+                url={'https://www.youtube.com/watch?v=EngW7tLk6R8'}
                 width="25rem"
                 height="15rem"
                 playing={true}
