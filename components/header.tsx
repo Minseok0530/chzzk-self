@@ -2,12 +2,14 @@
 
 import Image from 'next/image';
 import logo from '../public/chzzk-logo.gif';
+import { useRef } from 'react';
 
 // eslint-disable-next-line @next/next/no-async-client-component
-let clickFinder: boolean;
+
 export default function Page() {
+  let clickFinder = useRef(false);
   const searchClick = () => {
-    clickFinder = !clickFinder ? true : false;
+    clickFinder.current = !clickFinder.current ? true : false;
     console.log(clickFinder);
   };
 
@@ -27,7 +29,7 @@ export default function Page() {
         <div
           className="w-96 border p-2 flex bg-[#141517] items-center h-9 rounded-full"
           style={
-            clickFinder === true
+            clickFinder.current === true
               ? { borderColor: 'green' }
               : { borderColor: 'gray' }
           }
@@ -37,7 +39,7 @@ export default function Page() {
             type="text"
             // value={inputText}
             placeholder="스트리머, 게임 영상검색"
-            onClick={searchClick}
+            onClick={() => searchClick}
           ></input>
           <button className="h-5 mb-1">
             <span
