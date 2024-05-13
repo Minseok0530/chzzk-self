@@ -27,9 +27,9 @@ export default function RootLayout({
       </head>
       <body className="bg-[#141517] text-white">
         <Header />
-        <div className="flex mt-0">
+        <div className="flex">
           <Menu />
-          {children}
+          <div className="w-full">{children}</div>
         </div>
       </body>
     </html>

@@ -1,7 +1,16 @@
+'use client';
+
 import Image from 'next/image';
 import logo from '../public/chzzk-logo.gif';
 
-export default async function Page() {
+// eslint-disable-next-line @next/next/no-async-client-component
+let clickFinder: boolean;
+export default function Page() {
+  const searchClick = () => {
+    clickFinder = !clickFinder ? true : false;
+    console.log(clickFinder);
+  };
+
   return (
     <div>
       <div className="flex mt-3 justify-between mx-4">
@@ -15,13 +24,20 @@ export default async function Page() {
             height={100}
           />
         </button>
-
-        <div className="w-96 border p-2 flex bg-[#141517] border-[#2D2D2F] items-center h-9 rounded-full">
+        <div
+          className="w-96 border p-2 flex bg-[#141517] items-center h-9 rounded-full"
+          style={
+            clickFinder === true
+              ? { borderColor: 'green' }
+              : { borderColor: 'gray' }
+          }
+        >
           <input
-            className="h-5 w-[100%] bg-[#141517] text-[0.95rem]"
+            className="h-5 w-[100%] bg-[#141517] text-[0.9rem] outline-none"
             type="text"
             // value={inputText}
             placeholder="스트리머, 게임 영상검색"
+            onClick={searchClick}
           ></input>
           <button className="h-5 mb-1">
             <span
