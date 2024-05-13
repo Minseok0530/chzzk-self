@@ -99,40 +99,44 @@ export default function Menu() {
       </div>
 
       <div className="flex flex-col items-center">
-        <span
-          //두번째
-          className="material-symbols-outlined"
-        >
-          trophy
-        </span>
-        <div style={{ fontSize: '0.75rem' }}>E스포츠</div>
+        <Link href={'https://game.naver.com/esports/League_of_Legends/home'}>
+          <span
+            //두번째
+            className="material-symbols-outlined"
+          >
+            trophy
+          </span>
+          <div style={{ fontSize: '0.75rem' }}>E스포츠</div>
+        </Link>
       </div>
 
       <div className="flex flex-col items-center">
-        <svg
-          //세번째
-          width="26"
-          height="26"
-          viewBox="0 0 26 26"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="header_icon__8SHkt"
-        >
-          <circle
-            cx="13"
-            cy="13"
-            r="9"
-            stroke="currentColor"
-            stroke-width="1.5"
-          ></circle>
-          <path
-            d="M8.89454 12.0289L10.117 15.1725C10.1469 15.2494 10.221 15.3 10.3034 15.3H15.6965C15.779 15.3 15.853 15.2494 15.8829 15.1725L17.1054 12.0289C17.1431 11.932 17.0261 11.849 16.9471 11.9167L15.125 13.4786L13.0839 10.3295C13.0445 10.2687 12.9555 10.2687 12.9161 10.3295L10.875 13.4786L9.05282 11.9167C8.97383 11.849 8.85684 11.932 8.89454 12.0289Z"
-            fill="currentColor"
-            stroke="currentColor"
-            stroke-linecap="round"
-          ></path>
-        </svg>
-        <div style={{ fontSize: '0.75rem' }}>오리지날</div>
+        <Link href={'https://game.naver.com/original_series'}>
+          <svg
+            //세번째
+            width="26"
+            height="26"
+            viewBox="0 0 26 26"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="header_icon__8SHkt"
+          >
+            <circle
+              cx="13"
+              cy="13"
+              r="9"
+              stroke="currentColor"
+              stroke-width="1.5"
+            ></circle>
+            <path
+              d="M8.89454 12.0289L10.117 15.1725C10.1469 15.2494 10.221 15.3 10.3034 15.3H15.6965C15.779 15.3 15.853 15.2494 15.8829 15.1725L17.1054 12.0289C17.1431 11.932 17.0261 11.849 16.9471 11.9167L15.125 13.4786L13.0839 10.3295C13.0445 10.2687 12.9555 10.2687 12.9161 10.3295L10.875 13.4786L9.05282 11.9167C8.97383 11.849 8.85684 11.932 8.89454 12.0289Z"
+              fill="currentColor"
+              stroke="currentColor"
+              stroke-linecap="round"
+            ></path>
+          </svg>
+          <div style={{ fontSize: '0.75rem' }}>오리지날</div>
+        </Link>
       </div>
 
       <div className="flex flex-col items-center">
