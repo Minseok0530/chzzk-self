@@ -4,7 +4,6 @@ import ReactPlayer from 'react-player';
 import { useEffect, useRef, useState } from 'react';
 import supabase from '../api/supabase';
 import { Tables } from '../supabase';
-import nextAppLoader from 'next/dist/build/webpack/loaders/next-app-loader';
 
 const index = ['1번 제목', '2번 제목', '3번 제목'];
 // async function getAllLink() {
