@@ -4,6 +4,7 @@ import ReactPlayer from 'react-player';
 import { useEffect, useRef, useState } from 'react';
 import supabase from '../api/supabase';
 import { Tables } from '../supabase';
+import { error } from 'console';
 
 const index = ['1번 제목', '2번 제목', '3번 제목'];
 // async function getAllLink() {
@@ -25,9 +26,11 @@ async function getLink(maxnumber: number) {
     .select('*')
     .limit(maxnumber)
     .returns<Tables<'todos'>[]>();
+  if (!linkdata) return;
   const sortLink = linkdata.data?.map((o) => {
-    if (!o) return '';
-    else return o.link;
+    if (o !== null) {
+      if (o) return { link: o.link, name: o.Name };
+    }
   });
 
   if (sortLink) return sortLink;
@@ -36,10 +39,10 @@ async function getLink(maxnumber: number) {
 export default function Home() {
   //let data: (string | null)[];
 
-  const [data, setData] = useState<(string | null)[]>([]);
+  const [data, setData] = useState<
+    ({ link: string | null; name: string | null } | undefined)[]
+  >([]);
   const [maxSize, setMaxSize] = useState(5);
-  const [currentIndex, setIndex] = useState(5);
-  const videoList = getLink(maxSize);
 
   useEffect(() => {
     const loadData = async () => {
@@ -73,21 +76,26 @@ export default function Home() {
   return (
     <div className="flex">
       <div className="flex flex-col w-full">
-        <div className="bg-gray-600 h-20 mx-2 my-2 rounded-lg">
+        <div className="bg-gray-600 h-20 rounded-xl">
           <div className="bg-gray-600 hover:bg-white h-20 w-[20%]"></div>
         </div>
         <div>
           {isWindow && (
-            <ReactPlayer
-              url={'https://www.youtube.com/watch?v=Qi9-K7M4K_U'}
-              width="100%"
-              height="22rem"
-              playing={true}
-              muted={true}
-              loop={true}
-              controls={false}
-              onRewind={true}
-            />
+            <div className="flex">
+              <ReactPlayer
+                url={'https://www.youtube.com/watch?v=Qi9-K7M4K_U'}
+                width="100%"
+                height="22rem"
+                playing={true}
+                muted={true}
+                loop={true}
+                controls={false}
+                onRewind={true}
+                style={{ pointerEvents: 'none' }}
+              >
+                <div className="">Test</div>
+              </ReactPlayer>
+            </div>
           )}
         </div>
         <div>
@@ -98,18 +106,25 @@ export default function Home() {
                 <div className="grid grid-cols-5">
                   {data?.map((o, i) => {
                     return (
-                      <div className="mx-2 p-0" key={i}>
-                        <ReactPlayer
-                          url={o === null ? '' : o}
-                          width="22rem"
-                          height="15rem"
-                          playing={true}
-                          muted={true}
-                          controls={false}
-                          onRewind={true}
-                        />
-                        <div>{o}</div>
-                      </div>
+                      <button
+                        key={i}
+                        className="flex flex-col justify-center-center hover:bg-gray-800"
+                        onClick={() => console.log('the Video Click')}
+                      >
+                        <div className="w-[23rem] flex justify-center mt-2 rounded-full">
+                          <ReactPlayer
+                            url={o?.link === null ? '' : o?.link}
+                            width="95%"
+                            height="15rem"
+                            playing={true}
+                            muted={true}
+                            controls={false}
+                            onRewind={true}
+                            style={{ pointerEvents: 'none' }}
+                          />
+                        </div>
+                        <div>{o?.name}</div>
+                      </button>
                     );
                   })}
                 </div>
