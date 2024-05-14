@@ -10,8 +10,11 @@ export default function Page(props: { searchParams: { url: string } }) {
   console.log(props.searchParams.url);
   return (
     <div>
-      AA
-      <ReactPlayer url={props.searchParams.url} width={'80%'} height={'120%'} />
+      <ReactPlayer
+        url={props.searchParams.url}
+        width={'80%'}
+        height={'45rem'}
+      />
     </div>
   );
 }
