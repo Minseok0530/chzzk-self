@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import logo from '../public/chzzk-logo.gif';
 import { useRef } from 'react';
+import Link from 'next/link';
 
 // eslint-disable-next-line @next/next/no-async-client-component
 
@@ -15,15 +16,17 @@ export default function Page() {
 
   return (
     <div>
-      <div className="flex mt-[0.4rem] justify-between mr-4">
+      <div className="flex mt-[0.2rem] justify-between mr-4">
         <button className="mt-0">
-          <Image
-            className="-ml-10"
-            src={logo}
-            alt={''}
-            width={150}
-            height={150}
-          />
+          <Link href={'/'}>
+            <Image
+              className="-ml-10"
+              src={logo}
+              alt={''}
+              width={150}
+              height={150}
+            />
+          </Link>
         </button>
 
         <div className="w-[25rem] border mt-2 mb-3 p-2 flex bg-[#141517] items-center h-9 rounded-full active:border-green-800">
