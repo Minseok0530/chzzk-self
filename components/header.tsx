@@ -26,14 +26,7 @@ export default function Page() {
             height={100}
           />
         </button>
-        <div
-          className="w-96 border p-2 flex bg-[#141517] items-center h-9 rounded-full"
-          style={
-            clickFinder.current === true
-              ? { borderColor: 'green' }
-              : { borderColor: 'gray' }
-          }
-        >
+        <div className="w-96 border p-2 flex bg-[#141517] items-center h-9 rounded-full active:border-green-800">
           <input
             className="h-5 w-[100%] bg-[#141517] text-[0.9rem] outline-none"
             type="text"
@@ -52,7 +45,7 @@ export default function Page() {
         </div>
 
         <div className="flex my-1">
-          <button className="mr-3 pt-1">
+          <button className="mr-3 pt-1 hover:bg-slate-700 rounded-md px-1">
             <span
               className="material-symbols-outlined"
               style={{ fontSize: '1.9rem', fontWeight: 200 }}
@@ -60,7 +53,7 @@ export default function Page() {
               confirmation_number
             </span>
           </button>
-          <button className="mr-3 pt-1">
+          <button className="mr-3 pt-1 hover:bg-slate-700 rounded-md px-1">
             <span
               className="material-symbols-outlined"
               style={{ fontSize: '1.9rem', fontWeight: 200 }}
@@ -68,7 +61,7 @@ export default function Page() {
               light_mode
             </span>
           </button>
-          <button className="border border-gray-700 rounded-lg w-20">
+          <button className="border border-gray-700 rounded-lg w-20 hover:bg-slate-500">
             로그인
           </button>
         </div>

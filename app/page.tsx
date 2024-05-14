@@ -73,6 +73,9 @@ export default function Home() {
   return (
     <div className="flex">
       <div className="flex flex-col w-full">
+        <div className="bg-gray-600 h-20 mx-2 my-2 rounded-lg">
+          <div className="bg-gray-600 hover:bg-white h-20 w-[20%]"></div>
+        </div>
         <div>
           {isWindow && (
             <ReactPlayer
