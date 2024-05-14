@@ -1,10 +1,11 @@
 'use client';
 
 import ReactPlayer from 'react-player';
-import { useEffect, useRef, useState } from 'react';
+import { MouseEventHandler, useEffect, useRef, useState } from 'react';
 import supabase from '../api/supabase';
 import { Tables } from '../supabase';
-import { error } from 'console';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const index = ['1번 제목', '2번 제목', '3번 제목'];
 // async function getAllLink() {
@@ -37,8 +38,6 @@ async function getLink(maxnumber: number) {
 }
 
 export default function Home() {
-  //let data: (string | null)[];
-
   const [data, setData] = useState<
     ({ link: string | null; name: string | null } | undefined)[]
   >([]);
@@ -54,14 +53,15 @@ export default function Home() {
     loadData();
   }, [maxSize]);
 
-  // videoList.then((items) => {
-  //   if (items)
-  //     return (data = items?.map((o) => {
-  //       if (!o) return '';
-  //       return o;
-  //     }));
-  // });
+  // const pageVideoMove = (urls: string) => {
+  //   // eslint-disable-next-line react-hooks/rules-of-hooks
+  //   router.push({
+  //     pathname: '../app/(page)/videolive',
+  //     query: { url: urls },
+  //   });
 
+  //   return;
+  // };
   async function loadMore() {
     if (maxSize > 5) setMaxSize(5);
     else setMaxSize(10);
@@ -106,25 +106,33 @@ export default function Home() {
                 <div className="grid grid-cols-5">
                   {data?.map((o, i) => {
                     return (
-                      <button
+                      <Link
                         key={i}
-                        className="flex flex-col justify-center-center hover:bg-gray-800"
-                        onClick={() => console.log('the Video Click')}
+                        href={{
+                          pathname: '/videolive',
+                          query: { url: o?.link },
+                        }}
                       >
-                        <div className="w-[23rem] flex justify-center mt-2 rounded-full">
-                          <ReactPlayer
-                            url={o?.link === null ? '' : o?.link}
-                            width="95%"
-                            height="15rem"
-                            playing={true}
-                            muted={true}
-                            controls={false}
-                            onRewind={true}
-                            style={{ pointerEvents: 'none' }}
-                          />
-                        </div>
-                        <div>{o?.name}</div>
-                      </button>
+                        {' '}
+                        <button
+                          className="flex flex-col justify-center-center hover:bg-gray-800"
+                          //onClick={() => pageVideoMove(o?.link ?? '')}
+                        >
+                          <div className="w-[23rem] flex justify-center mt-2 rounded-full">
+                            <ReactPlayer
+                              url={o?.link === null ? '' : o?.link}
+                              width="95%"
+                              height="15rem"
+                              playing={true}
+                              muted={true}
+                              controls={false}
+                              onRewind={true}
+                              style={{ pointerEvents: 'none' }}
+                            />
+                          </div>
+                          <div>{o?.name}</div>
+                        </button>
+                      </Link>
                     );
                   })}
                 </div>

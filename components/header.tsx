@@ -15,24 +15,23 @@ export default function Page() {
 
   return (
     <div>
-      <div className="flex mt-3 justify-between mx-4">
-        <button className="flex ">
-          <span className="material-symbols-outlined">menu</span>
+      <div className="flex mt-[0.4rem] justify-between mr-4">
+        <button className="mt-0">
           <Image
-            className="-ml-3"
+            className="-ml-10"
             src={logo}
             alt={''}
-            width={100}
-            height={100}
+            width={150}
+            height={150}
           />
         </button>
-        <div className="w-96 border p-2 flex bg-[#141517] items-center h-9 rounded-full active:border-green-800">
+
+        <div className="w-[25rem] border mt-2 mb-3 p-2 flex bg-[#141517] items-center h-9 rounded-full active:border-green-800">
           <input
             className="h-5 w-[100%] bg-[#141517] text-[0.9rem] outline-none"
             type="text"
             // value={inputText}
             placeholder="스트리머, 게임 영상검색"
-            onClick={() => searchClick}
           ></input>
           <button className="h-5 mb-1">
             <span

@@ -26,10 +26,10 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="bg-[#141517] text-white">
-        <Header />
-        <div className="flex">
-          <Menu />
+      <body className="bg-[#141517] text-white flex">
+        <Menu />
+        <div className="flex flex-col w-full h-full">
+          <Header />
           <div className="w-full">{children}</div>
         </div>
       </body>
