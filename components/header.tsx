@@ -29,7 +29,13 @@ export default function Page() {
           </Link>
         </button>
 
-        <div className="w-[25rem] border mt-2 mb-3 p-2 flex bg-[#141517] items-center h-9 rounded-full active:border-green-800">
+        <div
+          className="w-[25rem] border mt-2 mb-3 p-2 flex items-center h-9 rounded-full"
+          onClick={searchClick}
+          style={{
+            borderColor: clickFinder.current === false ? 'gray' : 'green',
+          }}
+        >
           <input
             className="h-5 w-[100%] bg-[#141517] text-[0.9rem] outline-none"
             type="text"
