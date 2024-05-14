@@ -46,7 +46,7 @@ export default function Menu() {
       <div style={{ fontSize: '0.9rem' }}>추천</div>
       <div style={{ fontSize: '0.9rem' }}>파트너</div>
       <div className="divide-x divide-solid border-gray-50 border"></div>
-
+      <div></div>
       <div className="flex flex-col items-center">
         <Link href={'https://game.naver.com/'}>
           <svg
@@ -140,43 +140,47 @@ export default function Menu() {
       </div>
 
       <div className="flex flex-col items-center">
-        <span
-          //4번째
-          className="material-symbols-outlined"
-        >
-          desktop_windows
-        </span>
-        <div style={{ fontSize: '0.75rem' }}>PC 게임</div>
+        <Link href={'https://game.naver.com/pcgame'}>
+          <span
+            //4번째
+            className="material-symbols-outlined"
+          >
+            desktop_windows
+          </span>
+          <div style={{ fontSize: '0.75rem' }}>PC 게임</div>
+        </Link>
       </div>
 
       <div className="flex flex-col items-center">
-        <svg
-          //다섯번 째
-          width="26"
-          height="26"
-          viewBox="0 0 26 26"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="header_icon__8SHkt"
-        >
-          <path
-            d="M16.2562 16.5455V14.7001H13.3917L16.5455 10.488H13.9899L14.7638 9.45456H12.2082L10.0961 12.2755H12.6517L9.45456 16.5455H16.2562Z"
-            fill="currentColor"
-          ></path>
-          <rect
-            x="4.29544"
-            y="4.29529"
-            width="17.4091"
-            height="17.4091"
-            rx="8.70455"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linejoin="round"
-          ></rect>
-        </svg>
-        <div style={{ fontSize: '0.75rem' }}>
-          치지직<p>라운지</p>
-        </div>
+        <Link href={'https://game.naver.com/lounge/chzzk/home'}>
+          <svg
+            //다섯번 째
+            width="26"
+            height="26"
+            viewBox="0 0 26 26"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="header_icon__8SHkt"
+          >
+            <path
+              d="M16.2562 16.5455V14.7001H13.3917L16.5455 10.488H13.9899L14.7638 9.45456H12.2082L10.0961 12.2755H12.6517L9.45456 16.5455H16.2562Z"
+              fill="currentColor"
+            ></path>
+            <rect
+              x="4.29544"
+              y="4.29529"
+              width="17.4091"
+              height="17.4091"
+              rx="8.70455"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linejoin="round"
+            ></rect>
+          </svg>
+          <div style={{ fontSize: '0.75rem' }}>
+            치지직<p>라운지</p>
+          </div>
+        </Link>
       </div>
 
       <div></div>
