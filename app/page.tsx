@@ -141,7 +141,12 @@ export default function Home() {
           )}
         </div>
         <div>
-          <p className="text-[1.5rem] font-bold tracking">이 라이브 어때요?</p>
+          <div className="flex justify-between">
+            <p className="text-[1.5rem] font-bold tracking">
+              이 라이브 어때요?
+            </p>
+            <button>전체보기</button>
+          </div>
           <div className="flex">
             {isWindow && (
               <div>
@@ -201,14 +206,14 @@ export default function Home() {
           <div className="flex">
             {category_data.map((o, i) => {
               return (
-                <div key={i}>
+                <div key={i} className="mr-4">
                   <button>
                     <Image
-                      className=""
+                      className="rounded-xl"
                       src={`/category/${o.category_id}.png`}
                       alt={''}
-                      width={150}
-                      height={150}
+                      width={200}
+                      height={200}
                     />
                   </button>
                 </div>
