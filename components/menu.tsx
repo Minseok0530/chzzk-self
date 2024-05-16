@@ -1,6 +1,10 @@
+'use client';
+
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function Menu() {
+  const router = useRouter();
   return (
     <div className="flex flex-col w-14 mr-4 mt-[0.4rem] ml-3">
       <div className="flex flex-col mt-1">
@@ -46,7 +50,12 @@ export default function Menu() {
             </defs>
           </svg>
         </button>
-        <button className="-black  mt-6 items-center justify-center flex flex-col">
+        <button
+          className="-black  mt-6 items-center justify-center flex flex-col "
+          onClick={() => {
+            router.push('/all-live');
+          }}
+        >
           <svg
             width="26"
             height="26"
@@ -81,7 +90,12 @@ export default function Menu() {
             전체<p>라이브</p>
           </div>
         </button>
-        <button className="-black  mt-6 items-center justify-center flex flex-col">
+        <button
+          className="-black  mt-6 items-center justify-center flex flex-col"
+          onClick={() => {
+            router.push('/review');
+          }}
+        >
           <svg
             width="26"
             height="26"
@@ -110,7 +124,12 @@ export default function Menu() {
             다시보기
           </div>
         </button>
-        <button className="-black  mt-6 items-center justify-center flex flex-col">
+        <button
+          className="-black  mt-6 items-center justify-center flex flex-col"
+          onClick={() => {
+            router.push('/category');
+          }}
+        >
           <svg
             width="26"
             height="26"
@@ -160,7 +179,12 @@ export default function Menu() {
             카테고리
           </div>
         </button>
-        <button className="-black  mt-6 items-center justify-center flex flex-col">
+        <button
+          className="-black  mt-6 items-center justify-center flex flex-col"
+          onClick={() => {
+            router.push('/following');
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="26"
