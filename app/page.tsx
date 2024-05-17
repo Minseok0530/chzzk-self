@@ -190,8 +190,8 @@ export default function Home() {
                     );
                   })}
                 </div>
-                <div className="flex justify-center mt-3 items-center">
-                  <div className="w-full border-t border-gray-300" />
+                <div className="flex justify-center mt-3 items-center mx-auto">
+                  <div className="w-[90%] border-t border-gray-300" />
                   <button
                     onClick={loadMore}
                     className="border rounded-full w-52 flex justify-center"
@@ -203,7 +203,7 @@ export default function Home() {
                       </span>
                     </div>
                   </button>
-                  <div className="w-full border-t border-gray-300" />
+                  <div className="w-[90%] border-t border-gray-300" />
                 </div>
               </div>
             )}
