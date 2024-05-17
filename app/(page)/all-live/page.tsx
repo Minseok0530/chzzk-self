@@ -40,7 +40,8 @@ export default function Home() {
         if (o.link)
           return (
             <div key={i}>
-              <ReactPlayer url={o?.link} />
+              <ReactPlayer url={o.link} width='100%' height='100%' volume={0} />
+              <p>{o.Name}</p>
             </div>
           );
       })}
