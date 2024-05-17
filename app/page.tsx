@@ -145,12 +145,14 @@ export default function Home() {
             </div>
           )}
         </div>
-        <div>
+        <div className="mt-5">
           <div className="flex justify-between">
             <p className="text-[1.5rem] font-bold tracking">
               이 라이브 어때요?
             </p>
-            <button>전체보기</button>
+            <Link href="/all-live" className="mr-3">
+              <button>전체보기</button>
+            </Link>
           </div>
           <div className="w-full">
             {isWindow && (
@@ -169,28 +171,30 @@ export default function Home() {
                         <button
                           className={`hover:bg-gray-800 mt-3 w-[100%] ${
                             isLastItem ? '' : 'mr-3'
-                          } `}
+                          } flex flex-col items-center`}
                           //onClick={() => pageVideoMove(o?.link ?? '')}
                         >
-                          <div className="flex flex-col justify-center items-center">
-                            <ReactPlayer
-                              url={o?.link === null ? '' : o?.link}
-                              width="97%"
-                              height="12rem"
-                              playing={true}
-                              muted={true}
-                              controls={false}
-                              onRewind={true}
-                              style={{ pointerEvents: 'none' }}
-                            />
+                          <div className="items-center w-[95%]">
+                            <div className="text-start">
+                              <ReactPlayer
+                                url={o?.link === null ? '' : o?.link}
+                                width="100%"
+                                height="12rem"
+                                playing={true}
+                                muted={true}
+                                controls={false}
+                                onRewind={true}
+                                style={{ pointerEvents: 'none' }}
+                              />
+                              <div className="">{o?.name}</div>
+                            </div>
                           </div>
-                          <div className="text-start">{o?.name}</div>
                         </button>
                       </Link>
                     );
                   })}
                 </div>
-                <div className="flex justify-center mt-3 items-center mx-auto">
+                <div className="flex justify-center mt-3 items-center mx-auto w-[96%]">
                   <div className="w-[90%] border-t border-gray-300" />
                   <button
                     onClick={loadMore}
