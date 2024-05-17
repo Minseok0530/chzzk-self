@@ -116,14 +116,14 @@ export default function Home() {
   return (
     <div className="flex mr-4 ml-8">
       <div className="flex flex-col w-full">
-        <div className="bg-[#1E2022] h-20 rounded-xl mb-6">
+        <div className="bg-[#1E2022] h-20 rounded-xl mb-7">
           <div className=" hover:bg-[#2E3033] h-20 w-[20%] rounded-s-xl text-center">
             광?고
           </div>
         </div>
         <div>
           {isWindow && (
-            <div className="flex">
+            <div className="flex rounded-xl">
               <ReactPlayer
                 url={'https://www.youtube.com/watch?v=Qi9-K7M4K_U'}
                 width="100%"
@@ -133,7 +133,12 @@ export default function Home() {
                 loop={true}
                 controls={false}
                 onRewind={true}
-                style={{ pointerEvents: 'none' }}
+                style={{
+                  pointerEvents: 'none',
+                  border: 1,
+                  borderRadius: 15,
+                  overflow: 'hidden',
+                }}
               >
                 <div className="">Test</div>
               </ReactPlayer>
@@ -147,11 +152,12 @@ export default function Home() {
             </p>
             <button>전체보기</button>
           </div>
-          <div className="flex">
+          <div className="w-full">
             {isWindow && (
               <div>
                 <div className="grid grid-cols-5">
                   {data?.map((o, i) => {
+                    const isLastItem = i === data.length - 1;
                     return (
                       <Link
                         key={i}
@@ -161,14 +167,16 @@ export default function Home() {
                         }}
                       >
                         <button
-                          className="flex flex-col justify-center-center hover:bg-gray-800"
+                          className={`hover:bg-gray-800 mt-3 w-[100%] ${
+                            isLastItem ? '' : 'mr-3'
+                          } `}
                           //onClick={() => pageVideoMove(o?.link ?? '')}
                         >
-                          <div className="w-[23rem] flex justify-center mt-2 rounded-full">
+                          <div className="flex flex-col justify-center items-center">
                             <ReactPlayer
                               url={o?.link === null ? '' : o?.link}
-                              width="95%"
-                              height="15rem"
+                              width="97%"
+                              height="12rem"
                               playing={true}
                               muted={true}
                               controls={false}
@@ -176,7 +184,7 @@ export default function Home() {
                               style={{ pointerEvents: 'none' }}
                             />
                           </div>
-                          <div>{o?.name}</div>
+                          <div className="text-start">{o?.name}</div>
                         </button>
                       </Link>
                     );
@@ -221,7 +229,44 @@ export default function Home() {
             })}
           </div>
         </div>
-        <div>신입 스트리머 인사드립니다</div>
+        <div>
+          신입 스트리머 인사드립니다
+          <div className="grid grid-cols-5">
+            {data?.map((o, i) => {
+              const isLastItem = i === data.length - 1;
+              return (
+                <Link
+                  key={i}
+                  href={{
+                    pathname: '/videolive',
+                    query: { url: o?.link },
+                  }}
+                >
+                  <button
+                    className={`hover:bg-gray-800 mt-3 w-[100%] ${
+                      isLastItem ? '' : 'mr-3'
+                    } `}
+                    //onClick={() => pageVideoMove(o?.link ?? '')}
+                  >
+                    <div className="flex flex-col justify-center items-center">
+                      <ReactPlayer
+                        url={o?.link === null ? '' : o?.link}
+                        width="97%"
+                        height="12rem"
+                        playing={true}
+                        muted={true}
+                        controls={false}
+                        onRewind={true}
+                        style={{ pointerEvents: 'none' }}
+                      />
+                    </div>
+                    <div className="text-start">{o?.name}</div>
+                  </button>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );
