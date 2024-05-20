@@ -107,27 +107,26 @@ export default function Home() {
     else setMaxSize(10);
     console.log(maxSize);
   }
-
   const [isWindow, setIsWindow] = useState<boolean>(false);
   useEffect(() => {
     setIsWindow(true);
   }, []);
 
   return (
-    <div className="flex mr-4 ml-8">
-      <div className="flex flex-col w-full">
-        <div className="bg-[#1E2022] h-20 rounded-xl mb-7">
-          <div className=" hover:bg-[#2E3033] h-20 w-[20%] rounded-s-xl text-center">
+    <div className='flex mr-4 ml-8'>
+      <div className='flex flex-col w-full'>
+        <div className='bg-[#1E2022] h-20 rounded-xl mb-7'>
+          <div className=' hover:bg-[#2E3033] h-20 w-[20%] rounded-s-xl text-center'>
             광?고
           </div>
         </div>
         <div>
           {isWindow && (
-            <div className="flex rounded-xl">
+            <div className='flex rounded-xl'>
               <ReactPlayer
                 url={'https://www.youtube.com/watch?v=Qi9-K7M4K_U'}
-                width="100%"
-                height="22rem"
+                width='100%'
+                height='22rem'
                 playing={true}
                 muted={true}
                 loop={true}
@@ -140,24 +139,24 @@ export default function Home() {
                   overflow: 'hidden',
                 }}
               >
-                <div className="">Test</div>
+                <div className=''>Test</div>
               </ReactPlayer>
             </div>
           )}
         </div>
-        <div className="mt-5">
-          <div className="flex justify-between">
-            <p className="text-[1.5rem] font-bold tracking">
+        <div className='mt-5'>
+          <div className='flex justify-between'>
+            <p className='text-[1.5rem] font-bold tracking'>
               이 라이브 어때요?
             </p>
-            <Link href="/all-live" className="mr-3">
+            <Link href='/all-live' className='mr-3'>
               <button>전체보기</button>
             </Link>
           </div>
-          <div className="w-full">
+          <div className='w-full'>
             {isWindow && (
               <div>
-                <div className="grid grid-cols-5">
+                <div className='grid grid-cols-5'>
                   {data?.map((o, i) => {
                     const isLastItem = i === data.length - 1;
                     return (
@@ -174,19 +173,19 @@ export default function Home() {
                           } flex flex-col items-center`}
                           //onClick={() => pageVideoMove(o?.link ?? '')}
                         >
-                          <div className="items-center w-[95%]">
-                            <div className="text-start">
+                          <div className='items-center w-[95%]'>
+                            <div className='text-start'>
                               <ReactPlayer
                                 url={o?.link === null ? '' : o?.link}
-                                width="100%"
-                                height="12rem"
+                                width='100%'
+                                height='12rem'
                                 playing={true}
                                 muted={true}
                                 controls={false}
                                 onRewind={true}
                                 style={{ pointerEvents: 'none' }}
                               />
-                              <div className="">{o?.name}</div>
+                              <div className=''>{o?.name}</div>
                             </div>
                           </div>
                         </button>
@@ -194,34 +193,34 @@ export default function Home() {
                     );
                   })}
                 </div>
-                <div className="flex justify-center mt-3 items-center mx-auto w-[96%]">
-                  <div className="w-[90%] border-t border-gray-300" />
+                <div className='flex justify-center mt-3 items-center mx-auto w-[96%]'>
+                  <div className='w-[90%] border-t border-gray-300' />
                   <button
                     onClick={loadMore}
-                    className="border rounded-full w-52 flex justify-center"
+                    className='border rounded-full w-52 flex justify-center'
                   >
-                    <div className="flex">
+                    <div className='flex'>
                       {maxSize > 5 ? '접기' : '더보기'}
-                      <span className="material-symbols-outlined">
+                      <span className='material-symbols-outlined'>
                         keyboard_arrow_down
                       </span>
                     </div>
                   </button>
-                  <div className="w-[90%] border-t border-gray-300" />
+                  <div className='w-[90%] border-t border-gray-300' />
                 </div>
               </div>
             )}
           </div>
         </div>
-        <div className="">
+        <div className=''>
           좋아하실 꺼 같아요
-          <div className="flex">
+          <div className='flex'>
             {category_data.map((o, i) => {
               return (
-                <div key={i} className="mr-4">
+                <div key={i} className='mr-4'>
                   <button>
                     <Image
-                      className="rounded-xl"
+                      className='rounded-xl'
                       src={`/category/${o.category_id}.png`}
                       alt={''}
                       width={200}
@@ -235,7 +234,7 @@ export default function Home() {
         </div>
         <div>
           신입 스트리머 인사드립니다
-          <div className="grid grid-cols-5">
+          <div className='grid grid-cols-5'>
             {data?.map((o, i) => {
               const isLastItem = i === data.length - 1;
               return (
@@ -252,11 +251,11 @@ export default function Home() {
                     } `}
                     //onClick={() => pageVideoMove(o?.link ?? '')}
                   >
-                    <div className="flex flex-col justify-center items-center">
+                    <div className='flex flex-col justify-center items-center'>
                       <ReactPlayer
                         url={o?.link === null ? '' : o?.link}
-                        width="97%"
-                        height="12rem"
+                        width='97%'
+                        height='12rem'
                         playing={true}
                         muted={true}
                         controls={false}
@@ -264,7 +263,7 @@ export default function Home() {
                         style={{ pointerEvents: 'none' }}
                       />
                     </div>
-                    <div className="text-start">{o?.name}</div>
+                    <div className='text-start'>{o?.name}</div>
                   </button>
                 </Link>
               );
