@@ -73,7 +73,7 @@ export default function Page() {
         </button>
       </div>
       <div className='mt-[20px] mb-[35px]'>
-        비밀번호 찾기 | 아이디 찾기 | 회원가입
+        비밀번호 찾기 | 아이디 찾기 | <a href='/register'>회원가입</a>
       </div>
       <Image src='/AD/naver_ad.jpg' width={460} height={100} alt='' />
 
