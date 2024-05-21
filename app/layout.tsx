@@ -27,16 +27,18 @@ export default function RootLayout({
     <html lang='kr'>
       <head>
         <link
-          href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=optional'
+          href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200'
           rel='stylesheet'
         />
       </head>
-      <body className='bg-[#141517] text-white flex'>
-        {path === '/login' ? (
-          <div className='w-full flex justify-center'>
-            <Login />
+      {path === '/login' || '/register' ? (
+        <body>
+          <div className='w-full flex justify-center h-full bg-white'>
+            <div className='w-full'>{children}</div>
           </div>
-        ) : (
+        </body>
+      ) : (
+        <body className='bg-[#141517] text-white flex'>
           <div className='flex w-full'>
             <Menu />
             <div className='flex flex-col w-full h-full'>
@@ -99,8 +101,8 @@ export default function RootLayout({
               </footer>
             </div>
           </div>
-        )}
-      </body>
+        </body>
+      )}
     </html>
   );
 }
