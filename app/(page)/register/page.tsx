@@ -1,15 +1,52 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, SetStateAction } from 'react';
 import Image from 'next/image';
 import supabase from '../../../api/supabase';
+import { AltRoute } from '@mui/icons-material';
+import { log } from 'console';
 
 export default function Page() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [id, setId] = useState<string>('');
   const [isButtonDisabled, setButtonDisable] = useState(false);
+  const [selectedFile, setFileSelected] = useState<FileList>();
   //   supabase.auth.signUp({email, password})
+  const fileUpload = async () => {
+    const { data: loginData } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    console.log(loginData);
+    if (!selectedFile) {
+      alert('파일을 선택하세요.');
+      return;
+    }
+    try {
+      const { data, error } = await supabase.storage.from('Avatar').list();
+      const { data: selectedFileData, error: fileError } =
+        await supabase.storage.from('avatar').upload('', selectedFile[0]);
+      // .upload('user_avatar', selectedFile[0]);
+      console.log(data);
+      console.log(selectedFileData);
+      if (error || fileError) {
+        throw error;
+      }
+      alert('이미지 업로드가 완료되었습니다');
+    } catch (error) {
+      console.error(error);
+      alert('오류가 발생했습니다');
+    }
+  };
+  useEffect(() => {
+    console.log(selectedFile);
+    setFileSelected(selectedFile);
+  }, [selectedFile]);
+  const filehandle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files === null) return;
+    setFileSelected(event.target.files);
+  };
 
   // const emailState
   const signUp = async (email: string, password: string) => {
@@ -103,6 +140,16 @@ export default function Page() {
           </span>
           <input className='w-full' placeholder='생년월일'></input>
         </div>
+      </div>
+      <div>
+        <input
+          type='file'
+          accept='public/avatar'
+          onChange={(e) => filehandle(e)}
+        />
+        <button className='border' onClick={fileUpload}>
+          파일 업로드
+        </button>
       </div>
       <button
         className='w-96 border border-black'
