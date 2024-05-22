@@ -17,16 +17,16 @@ export default function Page() {
       />
       <div className='w-[458px] border-[#C6C6C6] border flex flex-col items-center h-[310px] rounded-md'>
         <div className='w-full flex h-[61px] border-b-white'>
-          <button className='border-r border-[#C6C6C6] w-[152.328px] rounded-tl-md flex border-b-white justify-center items-center'>
+          <button className='border-[#C6C6C6] w-[152.328px] rounded-t-md flex border-b-white justify-center items-center'>
             <span
-              className='material-symbols-outlined'
+              className='material-symbols-outlined mr-2'
               style={{ fontSize: '18px' }}
             >
               login
             </span>
             ID 로그인
           </button>
-          <button className='border-r border-b border-[#C6C6C6] w-[152.328px] flex justify-center items-center'>
+          <button className='border-r border-b border-l rounded-bl-md border-[#C6C6C6] w-[152.328px] flex justify-center items-center'>
             <span
               className='material-symbols-outlined flex'
               style={{ fontSize: '18px' }}
@@ -68,7 +68,7 @@ export default function Page() {
           </button>
           <button>IP보안</button>
         </div>
-        <button className='w-[410px] h-[52px] mt-[38px] rounded-md bg-[#09AA5C] text-white'>
+        <button className='w-[410px] h-[52px] mt-[38px] rounded-md bg-[#09AA5C] text-white mb-5'>
           로그인
         </button>
       </div>
@@ -77,7 +77,7 @@ export default function Page() {
       </div>
       <Image src='/AD/naver_ad.jpg' width={460} height={100} alt='' />
 
-      <div className=''>
+      <div className='flex flex-col items-center mt-20'>
         <ul className='flex' id='footer_link'>
           <li>
             <a
@@ -122,7 +122,7 @@ export default function Page() {
             </a>
           </li>
         </ul>
-        <div className='footer_copy'>
+        <div className='flex'>
           <a id='fot.naver' target='_blank' href='https://www.navercorp.com'>
             <span className='footer_logo'>
               <span className='blind'>네이버</span>
