@@ -14,34 +14,40 @@ export default function Page() {
   const [selectedFile, setFileSelected] = useState<FileList>();
   //   supabase.auth.signUp({email, password})
   const fileUpload = async () => {
-    const { data: loginData } = await supabase.auth.signInWithPassword({
-      email,
-      password,
+    const { data: loginData, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
     });
-    console.log(loginData);
+    console.log(loginData.user);
+    if (error) console.error(error);
     if (!selectedFile) {
       alert('파일을 선택하세요.');
       return;
     }
     try {
-      const { data, error } = await supabase.storage.from('Avatar').list();
+      console.log('Files', selectedFile[0]);
       const { data: selectedFileData, error: fileError } =
-        await supabase.storage.from('avatar').upload('', selectedFile[0]);
+        await supabase.storage
+          .from('avatar')
+          .upload(`test/${loginData.user?.id}`, selectedFile[0]);
       // .upload('user_avatar', selectedFile[0]);
-      console.log(data);
-      console.log(selectedFileData);
+
       if (error || fileError) {
+        console.log(fileError?.message);
         throw error;
       }
       alert('이미지 업로드가 완료되었습니다');
+      await supabase
+        .from('user_avatar')
+        .insert({ image_id: loginData.user.id });
     } catch (error) {
       console.error(error);
       alert('오류가 발생했습니다');
     }
   };
   useEffect(() => {
-    console.log(selectedFile);
     setFileSelected(selectedFile);
+    console.log('useEffect :', selectedFile);
   }, [selectedFile]);
   const filehandle = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files === null) return;
