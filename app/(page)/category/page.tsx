@@ -31,8 +31,13 @@ export default function Home() {
     categoryLoad();
   }, []);
   return (
-    <div>
-      카테고리
+    <div className='p-[30px]'>
+      <strong
+        className='font-bold text-2xl w-[80px]'
+        style={{ fontWeight: 400 }}
+      >
+        카테고리
+      </strong>
       <div className='grid grid-cols-8'>
         {category_Data.map((o, i) => {
           return (

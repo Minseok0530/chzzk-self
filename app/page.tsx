@@ -127,7 +127,7 @@ export default function Home() {
                 url={'https://www.youtube.com/watch?v=Qi9-K7M4K_U'}
                 width='100%'
                 height='22rem'
-                playing={true}
+                playing={false}
                 muted={true}
                 loop={true}
                 controls={false}
@@ -179,7 +179,7 @@ export default function Home() {
                                 url={o?.link === null ? '' : o?.link}
                                 width='100%'
                                 height='12rem'
-                                playing={true}
+                                playing={false}
                                 muted={true}
                                 controls={false}
                                 onRewind={true}
@@ -256,7 +256,7 @@ export default function Home() {
                         url={o?.link === null ? '' : o?.link}
                         width='97%'
                         height='12rem'
-                        playing={true}
+                        playing={false}
                         muted={true}
                         controls={false}
                         onRewind={true}
