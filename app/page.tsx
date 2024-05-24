@@ -124,7 +124,7 @@ export default function Home() {
           {isWindow && (
             <div className='flex rounded-xl'>
               <ReactPlayer
-                url={'https://www.youtube.com/watch?v=Qi9-K7M4K_U'}
+                url={'https://www.youtube.com/watch?v=f7NNLr2g27k'}
                 width='100%'
                 height='22rem'
                 playing={false}
@@ -132,11 +132,13 @@ export default function Home() {
                 loop={true}
                 controls={false}
                 onRewind={true}
+                volume={0}
                 style={{
                   pointerEvents: 'none',
                   border: 1,
                   borderRadius: 15,
                   overflow: 'hidden',
+                  objectFit: 'cover',
                 }}
               >
                 <div className=''>Test</div>
