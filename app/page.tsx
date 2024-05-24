@@ -122,9 +122,12 @@ export default function Home() {
         </div>
         <div>
           {isWindow && (
-            <div className='flex rounded-xl'>
+            <div
+              className='flex rounded-xl w-full'
+              style={{ overflow: 'hidden' }}
+            >
               <ReactPlayer
-                url={'https://www.youtube.com/watch?v=f7NNLr2g27k'}
+                url={'https://www.youtube.com/watch?v=f7NNLr2g27k?rel=0'}
                 width='100%'
                 height='22rem'
                 playing={false}
@@ -134,15 +137,58 @@ export default function Home() {
                 onRewind={true}
                 volume={0}
                 style={{
+                  aspectRatio: '16:9',
                   pointerEvents: 'none',
                   border: 1,
                   borderRadius: 15,
                   overflow: 'hidden',
                   objectFit: 'cover',
+                  zIndex: -1,
                 }}
+              />
+              <span
+                style={{ position: 'absolute' }}
+                className='flex mt-5 flex-col content-between ml-8 w-[90%]'
               >
-                <div className=''>Test</div>
-              </ReactPlayer>
+                <div className='flex'>
+                  <div className='bg-red-600 mr-6 w-20 h-7 text-center rounded-md'>
+                    NO LIVE
+                  </div>
+                  <div className='mr-6 w-28 h-7 text-center rounded-md text-red-600 font-bold'>
+                    21명의 시청
+                  </div>
+                </div>
+                <div className='font-bold text-xl'>새키로 용윤의길 도전</div>
+                <div className='rounded-full mt-44 flex items-center'>
+                  <div className='flex items-center'>
+                    <Image
+                      className='rounded-full border border-green-900 border-10'
+                      src={'/default_avatar/default_avatar.png'}
+                      width={80}
+                      height={80}
+                      alt=''
+                    />
+                    <div className='text-2xl ml-5'>김뉴비</div>
+                  </div>
+                  <div className='ml-[78rem]'>
+                    <div className='flex'>
+                      {[1, 2, 3, 4].map((o, i) => {
+                        return (
+                          <div key={i} className='mr-5'>
+                            <ReactPlayer
+                              url={
+                                'https://www.youtube.com/watch?v=f7NNLr2g27k'
+                              }
+                              width={100}
+                              height={100}
+                            />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </span>
             </div>
           )}
         </div>
@@ -160,7 +206,6 @@ export default function Home() {
               <div>
                 <div className='grid grid-cols-5'>
                   {data?.map((o, i) => {
-                    const isLastItem = i === data.length - 1;
                     return (
                       <Link
                         key={i}
@@ -171,7 +216,7 @@ export default function Home() {
                       >
                         <button
                           className={`hover:bg-gray-800 mt-3 w-[100%] ${
-                            isLastItem ? '' : 'mr-3'
+                            5 ? '' : 'mr-3'
                           } flex flex-col items-center`}
                           //onClick={() => pageVideoMove(o?.link ?? '')}
                         >
@@ -238,6 +283,7 @@ export default function Home() {
           신입 스트리머 인사드립니다
           <div className='grid grid-cols-5'>
             {data?.map((o, i) => {
+              if (i === 4) return;
               const isLastItem = i === data.length - 1;
               return (
                 <Link
