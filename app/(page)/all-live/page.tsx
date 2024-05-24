@@ -38,7 +38,28 @@ export default function Home() {
   }, []);
   return (
     <div>
-      All Live
+      <div className='flex items-center'>
+        <strong className='font-bold tracking-tight text-xl'>
+          전체 라이브
+        </strong>
+        <div className='w-52 border mt-2 mb-3 p-2 flex items-center h-9 rounded-full focus-within:border-green-500'>
+          <input
+            className='h-5 w-[100%] bg-[#141517] text-[0.9rem] outline-none'
+            type='text'
+            // value={inputText}
+            placeholder='태그 검색'
+          ></input>
+          <button className='h-5 mb-1'>
+            <span
+              className='material-symbols-outlined'
+              style={{ fontSize: '1.5rem', fontWeight: 'normal' }}
+            >
+              search
+            </span>
+          </button>
+        </div>
+      </div>
+
       {videoData.map((o, i) => {
         if (o.link)
           return (
