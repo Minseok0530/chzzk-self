@@ -30,10 +30,10 @@ const index = ['1번 제목', '2번 제목', '3번 제목'];
 
 async function getLink(maxnumber: number) {
   const linkdata = await supabase
-    .from('todos')
+    .from('video_list')
     .select('*')
     .limit(maxnumber)
-    .returns<Tables<'todos'>[]>();
+    .returns<Tables<'video_list'>[]>();
   if (!linkdata) return;
   const sortLink = linkdata.data?.map((o) => {
     if (o !== null) {

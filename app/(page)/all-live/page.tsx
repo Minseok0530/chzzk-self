@@ -7,7 +7,10 @@ import { useState, useEffect } from 'react';
 
 async function allLive() {
   const liveData = (
-    await supabase.from('todos').select('*').returns<Tables<'todos'>[]>()
+    await supabase
+      .from('video_list')
+      .select('*')
+      .returns<Tables<'video_list'>[]>()
   ).data;
 
   return liveData?.map((o, i) => {
