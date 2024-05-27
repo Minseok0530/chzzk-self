@@ -3,6 +3,7 @@
 import { Inter } from 'next/font/google';
 import '/styles/global.css';
 import Header from '../components/header';
+import { Jua, Do_Hyeon } from 'next/font/google';
 
 import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
@@ -15,6 +16,12 @@ import Login from '../app/(page)/login/page';
 // };
 /* eslint-disable @next/next/no-page-custom-font */
 /* eslint-disable @next/next/google-font-display */
+
+const jua = Do_Hyeon({
+  subsets: ['latin'],
+  weight: ['400'],
+  style: ['normal'],
+});
 const Menu = dynamic(() => import('../components/menu'), { ssr: false });
 const inter = Inter({ subsets: ['latin'] });
 export default function RootLayout({
@@ -32,18 +39,29 @@ export default function RootLayout({
         />
       </head>
       {path === '/login' || path === '/register' ? (
-        <body>
+        <body className={jua.className}>
           <div className='w-full flex justify-center h-full bg-white'>
             <div className='w-full'>{children}</div>
           </div>
         </body>
       ) : (
-        <body className='bg-[#141517] text-white flex'>
+        <body className={`${jua.className} bg-[#141517] text-white flex`}>
           <div className='flex w-full'>
-            <Menu />
-            <div className='flex flex-col w-full h-full'>
-              <Header />
-              <div className='w-full'>{children}</div>
+            <div className={`fixed flex`} style={{ zIndex: 3 }}>
+              <Menu />
+            </div>
+            <div className='ml-2 flex flex-col w-full h-full '>
+              <div
+                className='pl-20 fixed w-full bg-[#141517]'
+                style={{ zIndex: 2 }}
+              >
+                <div className='w-full bg-[#141517]'></div>
+                <Header />
+              </div>
+              <div className='w-full pt-16 pl-14 flex' style={{ zIndex: 1 }}>
+                <div className=''>{children}</div>
+              </div>
+
               <div className='border-t border-gray-300 mt-10 mx-auto w-[95%]' />
               <footer className='flex mt-10'>
                 <div className='footer_cell__0vJSU'>

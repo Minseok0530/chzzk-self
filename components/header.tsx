@@ -17,7 +17,7 @@ export default function Page() {
   return (
     <div>
       <div className='flex mt-[0.2rem] justify-between mr-4'>
-        <button className='mt-0'>
+        <button className='mt-0' style={{ zIndex: 4 }}>
           <Link href={'/'}>
             <Image
               className='-ml-10'

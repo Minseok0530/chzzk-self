@@ -114,7 +114,7 @@ export default function Home() {
 
   return (
     <div className='flex mr-4 ml-8'>
-      <div className='flex flex-col w-full'>
+      <div className='flex flex-col w-full ml-12'>
         <div className='bg-[#1E2022] h-20 rounded-xl mb-7'>
           <div className=' hover:bg-[#2E3033] h-20 w-[20%] rounded-s-xl text-center'>
             광?고
@@ -136,6 +136,11 @@ export default function Home() {
                 controls={false}
                 onRewind={true}
                 volume={0}
+                config={{
+                  youtube: {
+                    playerVars: { disablekb: 1, control: 0, modestbranding: 1 },
+                  },
+                }}
                 style={{
                   aspectRatio: '16:9',
                   pointerEvents: 'none',
@@ -158,33 +163,38 @@ export default function Home() {
                     21명의 시청
                   </div>
                 </div>
-                <div className='font-bold text-xl'>새키로 용윤의길 도전</div>
-                <div className='rounded-full mt-44 flex items-center'>
-                  <div className='flex items-center'>
-                    <Image
-                      className='rounded-full border border-green-900 border-10'
-                      src={'/default_avatar/default_avatar.png'}
-                      width={80}
-                      height={80}
-                      alt=''
-                    />
-                    <div className='text-2xl ml-5'>김뉴비</div>
-                  </div>
-                  <div className='ml-[78rem]'>
-                    <div className='flex'>
-                      {[1, 2, 3, 4].map((o, i) => {
-                        return (
-                          <div key={i} className='mr-5'>
-                            <ReactPlayer
-                              url={
-                                'https://www.youtube.com/watch?v=f7NNLr2g27k'
-                              }
-                              width={100}
-                              height={100}
-                            />
-                          </div>
-                        );
-                      })}
+                <div className='font-bold text-xl'>세키로 용윤의길 도전</div>
+                <div className='rounded-full mt-44 flex items-center w-full'>
+                  <div className='flex items-center w-full justify-between'>
+                    <div className='flex items-center'>
+                      <Image
+                        className='rounded-full border border-green-900 border-10'
+                        src={'/default_avatar/default_avatar.png'}
+                        width={80}
+                        height={80}
+                        alt=''
+                      />
+                      <div className='flex flex-col'>
+                        <div className='text-2xl ml-5'>김뉴비</div>
+                        <div className='flex ml-5 text-green-500'>
+                          <span className='material-symbols-outlined'>
+                            stadia_controller
+                          </span>
+                          세키로
+                        </div>
+                      </div>
+                    </div>
+                    <div className=''>
+                      <div className='flex'>
+                        {[1, 2, 3, 4].map((o, i) => {
+                          return (
+                            <div
+                              key={i}
+                              className='bg-black mr-3 w-[6.5rem] h-14 rounded-md border hover:border-green-500'
+                            ></div>
+                          );
+                        })}
+                      </div>
                     </div>
                   </div>
                 </div>
