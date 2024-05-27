@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 export default function Menu() {
   const router = useRouter();
   return (
-    <div className='flex flex-col w-14 mr-4 mt-[0.4rem] ml-3'>
+    <div className='flex flex-col w-10 mr-5 mt-[0.4rem] ml-5'>
       <div className='flex flex-col mt-1'>
         <button className='flex items-center justify-center'>
           <svg
@@ -51,7 +51,7 @@ export default function Menu() {
           </svg>
         </button>
         <button
-          className='-black  mt-6 items-center justify-center flex flex-col '
+          className='-black  mt-6 items-center justify-center flex flex-col text-green-500'
           onClick={() => {
             router.push('/all-live');
           }}

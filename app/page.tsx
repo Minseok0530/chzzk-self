@@ -113,8 +113,8 @@ export default function Home() {
   }, []);
 
   return (
-    <div className='flex mr-4 ml-8'>
-      <div className='flex flex-col w-full ml-12'>
+    <div className='flex mr-4'>
+      <div className='flex flex-col w-full'>
         <div className='bg-[#1E2022] h-20 rounded-xl mb-7'>
           <div className=' hover:bg-[#2E3033] h-20 w-[20%] rounded-s-xl text-center'>
             광?고

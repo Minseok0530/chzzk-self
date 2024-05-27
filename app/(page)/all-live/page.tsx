@@ -39,7 +39,7 @@ export default function Home() {
   return (
     <div>
       <div className='flex items-center'>
-        <p className='-tracking-2'>전체 라이브</p>
+        <p className='font-bold text-[1.5rem]'>전체 라이브</p>
         <div className='w-52 border mt-2 mb-3 p-2 flex items-center h-9 rounded-full focus-within:border-green-500'>
           <input
             className='h-5 w-[100%] bg-[#141517] text-[0.9rem] outline-none'
@@ -61,15 +61,25 @@ export default function Home() {
         {videoData.map((o, i) => {
           if (o.link)
             return (
-              <div key={i} className='mb-8 flex flex-col mr-4'>
+              <button
+                key={i}
+                className='mb-8 flex flex-col mr-4'
+                onClick={() => {
+                  console.log('Click');
+                }}
+              >
                 <ReactPlayer
                   url={o.link}
                   width='100%'
                   height='100%'
                   volume={0}
+                  controls={false}
+                  style={{
+                    pointerEvents: 'none',
+                  }}
                 />
                 <div className='mt-5'>{o.Name}</div>
-              </div>
+              </button>
             );
         })}
       </div>

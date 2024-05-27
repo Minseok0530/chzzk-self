@@ -31,7 +31,7 @@ export default function Home() {
     categoryLoad();
   }, []);
   return (
-    <div className='p-[30px]'>
+    <div className=''>
       <strong
         className='font-bold text-2xl w-[80px]'
         style={{ fontWeight: 400 }}
@@ -41,7 +41,7 @@ export default function Home() {
       <div className='grid grid-cols-8'>
         {category_Data.map((o, i) => {
           return (
-            <div key={i} className='mr-4 mb-10'>
+            <div key={i} className='mr-5 mb-10'>
               <button>
                 <Image
                   className='rounded-xl'

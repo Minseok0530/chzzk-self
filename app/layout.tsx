@@ -59,7 +59,7 @@ export default function RootLayout({
                 <Header />
               </div>
               <div className='w-full pt-16 pl-14 flex' style={{ zIndex: 1 }}>
-                <div className=''>{children}</div>
+                <div className='ml-10 mt-5 w-full'>{children}</div>
               </div>
 
               <div className='border-t border-gray-300 mt-10 mx-auto w-[95%]' />
