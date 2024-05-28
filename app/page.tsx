@@ -202,6 +202,10 @@ export default function Home() {
             </div>
           )}
         </div>
+        <div className='bg-white w-full mt-5 h-[5rem] rounded-xl flex justify-between'>
+          <div className='flex'>a</div>
+          <div className='bg-gray-500 flex h-6'>A</div>
+        </div>
         <div className='mt-5'>
           <div className='flex justify-between'>
             <p className='text-[1.5rem] font-bold tracking'>
@@ -259,7 +263,9 @@ export default function Home() {
                     <div className='flex'>
                       {maxSize > 5 ? '접기' : '더보기'}
                       <span className='material-symbols-outlined'>
-                        keyboard_arrow_down
+                        {maxSize > 5
+                          ? 'keyboard_arrow_up'
+                          : 'keyboard_arrow_down'}
                       </span>
                     </div>
                   </button>

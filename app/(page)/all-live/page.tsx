@@ -62,7 +62,7 @@ export default function Home() {
         {videoData.map((o, i) => {
           if (o.link)
             return (
-              <div key={i} className='flex flex-col mr-5 mb-4'>
+              <div key={i} className='flex flex-col mr-5 mb-4 '>
                 <button
                   className='flex flex-col'
                   onClick={() => {
