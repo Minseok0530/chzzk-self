@@ -46,7 +46,7 @@ export default function Page() {
           </button>
         </div>
 
-        <div className='flex my-1'>
+        <div className='flex my-1 items-center'>
           <button className='mr-3 pt-1 hover:bg-slate-700 rounded-md px-1'>
             <span
               className='material-symbols-outlined'

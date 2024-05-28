@@ -4,6 +4,7 @@ import ReactPlayer from 'react-player';
 import supabase from '../../../api/supabase';
 import { Tables } from '../../../supabase';
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 async function allLive() {
   const liveData = (
@@ -38,9 +39,9 @@ export default function Home() {
   }, []);
   return (
     <div>
-      <div className='flex items-center'>
-        <p className='font-bold text-[1.5rem]'>전체 라이브</p>
-        <div className='w-52 border mt-2 mb-3 p-2 flex items-center h-9 rounded-full focus-within:border-green-500'>
+      <div className='flex items-center mb-2'>
+        <p className='font-bold text-[1.5rem] mr-5'>전체 라이브</p>
+        <div className='w-52 border mt-2 mb-3 p-2 flex items-center h-7 rounded-full focus-within:border-green-500'>
           <input
             className='h-5 w-[100%] bg-[#141517] text-[0.9rem] outline-none'
             type='text'
@@ -61,25 +62,50 @@ export default function Home() {
         {videoData.map((o, i) => {
           if (o.link)
             return (
-              <button
-                key={i}
-                className='mb-8 flex flex-col mr-4'
-                onClick={() => {
-                  console.log('Click');
-                }}
-              >
-                <ReactPlayer
-                  url={o.link}
-                  width='100%'
-                  height='100%'
-                  volume={0}
-                  controls={false}
-                  style={{
-                    pointerEvents: 'none',
+              <div key={i} className='flex flex-col mr-5 mb-4'>
+                <button
+                  className='flex flex-col'
+                  onClick={() => {
+                    console.log('Click');
                   }}
-                />
-                <div className='mt-5'>{o.Name}</div>
-              </button>
+                >
+                  <ReactPlayer
+                    url={o.link}
+                    width='100%'
+                    height='100%'
+                    volume={0}
+                    controls={false}
+                    style={{
+                      pointerEvents: 'none',
+                    }}
+                  />
+                  <div className='flex mt-3'>
+                    <div className='flex'>
+                      <Image
+                        src={'/default_avatar/default_avatar.png'}
+                        width={35}
+                        height={35}
+                        alt=''
+                        className='rounded-full'
+                      />
+                    </div>
+                    <div className='flex flex-col text-start ml-3'>
+                      <p className='-mb-1'>{o.Name}</p>
+                    </div>
+                  </div>
+                </button>{' '}
+                <div className='-mt-4'>
+                  <button className='ml-12'>{o.streamer}</button>
+                  <button
+                    className='flex ml-11 -mt-1 bg-[#242528] rounded-md justify-center px-2'
+                    onClick={() => {
+                      console.log('tag Click');
+                    }}
+                  >
+                    {o.category}
+                  </button>
+                </div>
+              </div>
             );
         })}
       </div>
