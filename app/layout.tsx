@@ -63,7 +63,7 @@ export default function RootLayout({
               </div>
 
               <div className='border-t border-gray-300 mt-10 mx-auto w-[95%]' />
-              <footer className='flex mt-10'>
+              <footer className='flex mt-10 justify-center'>
                 <div className='footer_cell__0vJSU'>
                   <a
                     rel='noreferrer'
