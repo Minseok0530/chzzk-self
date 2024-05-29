@@ -39,7 +39,7 @@ export default function RootLayout({
         />
       </head>
       {path === '/login' || path === '/register' ? (
-        <body className={jua.className}>
+        <body>
           <div className='w-full flex justify-center h-full bg-white'>
             <div className='w-full'>{children}</div>
           </div>
