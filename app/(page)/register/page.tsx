@@ -3,8 +3,6 @@
 import { useState, useEffect, SetStateAction } from 'react';
 import Image from 'next/image';
 import supabase from '../../../api/supabase';
-import { AltRoute } from '@mui/icons-material';
-import { log } from 'console';
 
 export default function Page() {
   const [email, setEmail] = useState<string>('');
@@ -69,7 +67,9 @@ export default function Page() {
     setTimeout(() => {
       setButtonDisable(false);
     }, 3000);
-
+    // await supabase.auth.signUp({
+    //  options:{data:{}}
+    // })
     const { data: logindata, error: loginError } =
       await supabase.auth.signInWithPassword({
         email,
@@ -77,10 +77,9 @@ export default function Page() {
       });
     console.log(logindata, loginError);
   };
+
   const changeEmail = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
-    // console.log(e.target.value, email);
-    // console.log('Email:', email);
   };
   const changePassword = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -108,9 +107,8 @@ export default function Page() {
         alt=''
         className='-ml-[380px] -mt-[40px] -mb-[10px]'
       />
-      <></>
-      <div className='border flex flex-col justify-center items-center w-[460px]'>
-        <div className='w-[97%] h-12 items-center flex'>
+      <div className='border flex flex-col justify-center items-center w-[460px] rounded-lg'>
+        <div className='w-[97%] h-12 items-center flex border-b'>
           <span className='material-symbols-outlined'>person</span>
           <input
             className='w-full'
@@ -120,7 +118,7 @@ export default function Page() {
             }}
           />
         </div>
-        <div className='w-[97%] h-12 items-center flex'>
+        <div className='w-[97%] h-12 items-center flex border-b'>
           <span className='material-symbols-outlined'>lock</span>
           <input
             placeholder='비밀번호'
@@ -135,7 +133,7 @@ export default function Page() {
           <input placeholder='이메일' className='w-full' />
         </div>
       </div>
-      <div className='border flex flex-col justify-center items-center w-[460px] mt-5'>
+      {/* <div className='border flex flex-col justify-center items-center w-[460px] mt-5'>
         <div className='w-full flex h-12 items-center '>
           <span className='material-symbols-outlined'>person</span>
           <input className='w-full' placeholder='이름'></input>
@@ -146,16 +144,16 @@ export default function Page() {
           </span>
           <input className='w-full' placeholder='생년월일'></input>
         </div>
-      </div>
+      </div> */}
       <div>
         <input
           type='file'
           accept='public/avatar'
           onChange={(e) => filehandle(e)}
         />
-        <button className='border' onClick={fileUpload}>
+        {/* <button className='border' onClick={fileUpload}>
           파일 업로드
-        </button>
+        </button> */}
       </div>
       <button
         className='w-96 border border-black'
