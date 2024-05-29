@@ -74,6 +74,7 @@ export default function Home() {
                     width='100%'
                     height='100%'
                     volume={0}
+                    playing={true}
                     controls={false}
                     style={{
                       pointerEvents: 'none',

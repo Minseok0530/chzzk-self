@@ -299,7 +299,6 @@ export default function Home() {
           신입 스트리머 인사드립니다
           <div className='grid grid-cols-5'>
             {data?.map((o, i) => {
-              if (i === 4) return;
               const isLastItem = i === data.length - 1;
               return (
                 <Link
