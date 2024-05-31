@@ -11,6 +11,8 @@ export default function Page() {
   const [isButtonDisabled, setButtonDisable] = useState(false);
   const [selectedFile, setFileSelected] = useState<FileList>();
   //   supabase.auth.signUp({email, password})
+
+  const [file, setFile] = useState();
   const fileUpload = async () => {
     const { data: loginData, error } = await supabase.auth.signInWithPassword({
       email: email,
@@ -75,6 +77,8 @@ export default function Page() {
         email,
         password,
       });
+
+    // await supabase.storage.from('user_avatar').upload('', );
     console.log(logindata, loginError);
   };
 
@@ -108,7 +112,7 @@ export default function Page() {
         className='-ml-[380px] -mt-[40px] -mb-[10px]'
       />
       <div className='border flex flex-col justify-center items-center w-[460px] rounded-lg'>
-        <div className='w-[97%] h-12 items-center flex border-b'>
+        <div className='w-[100%] h-12 items-center flex border-b pl-2'>
           <span className='material-symbols-outlined'>person</span>
           <input
             className='w-full'
@@ -118,7 +122,7 @@ export default function Page() {
             }}
           />
         </div>
-        <div className='w-[97%] h-12 items-center flex border-b'>
+        <div className='w-[100%] h-12 items-center flex border-b pl-2'>
           <span className='material-symbols-outlined'>lock</span>
           <input
             placeholder='비밀번호'
@@ -128,7 +132,7 @@ export default function Page() {
             }}
           />
         </div>
-        <div className='w-[97%] h-12 items-center flex'>
+        <div className='w-[100%] h-12 items-center flex pl-2'>
           <span className='material-symbols-outlined'>mail</span>
           <input placeholder='이메일' className='w-full' />
         </div>
@@ -145,18 +149,21 @@ export default function Page() {
           <input className='w-full' placeholder='생년월일'></input>
         </div>
       </div> */}
-      <div>
+      <div className='mt-5 w-[460px] border flex justify-center rounded-lg py-4'>
         <input
           type='file'
           accept='public/avatar'
           onChange={(e) => filehandle(e)}
+          value={file}
+          alt=''
+          placeholder=''
         />
-        {/* <button className='border' onClick={fileUpload}>
+        {/* <button className='border' onDrop={() => {}}>
           파일 업로드
         </button> */}
       </div>
       <button
-        className='w-96 border border-black'
+        className='w-[28rem] border mt-5 rounded-md py-4 bg-green-600 text-white'
         onClick={() => signUp(email, password)}
         disabled={isButtonDisabled}
       >
