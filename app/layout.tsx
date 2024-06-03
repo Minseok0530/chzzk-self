@@ -7,6 +7,7 @@ import { Jua, Do_Hyeon } from 'next/font/google';
 
 import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 
 // export const metadata: Metadata = {
 //   title: 'Create Next App',
@@ -28,6 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const path = usePathname();
+  const [menuToggle, setMenuToggle] = useState(false);
   return (
     <html lang='kr'>
       <head>
@@ -45,19 +47,73 @@ export default function RootLayout({
       ) : (
         <body className={`${jua.className} bg-[#141517] text-white flex`}>
           <div className='flex w-full'>
-            <div className={`fixed flex`} style={{ zIndex: 3 }}>
-              <Menu />
+            <div className=''>
+              <div className={`flex flex-col fixed`} style={{ zIndex: 3 }}>
+                <button
+                  className={`flex -mb-1 mt-3 w-full h-full pl-5 pb-5`}
+                  onClick={() => {
+                    setMenuToggle(!menuToggle);
+                    console.log(path);
+                  }}
+                >
+                  <svg
+                    width='40'
+                    height='40'
+                    viewBox='0 0 40 40'
+                    fill='none'
+                    xmlns='http://www.w3.org/2000/svg'
+                    className='fixed'
+                  >
+                    <g clip-path='url(#clip0_1128_3162)'>
+                      <rect
+                        x='11'
+                        y='13'
+                        width='18'
+                        height='2'
+                        rx='1'
+                        fill='currentColor'
+                      ></rect>
+                      <rect
+                        x='11'
+                        y='19'
+                        width='18'
+                        height='2'
+                        rx='1'
+                        fill='currentColor'
+                      ></rect>
+                      <rect
+                        x='11'
+                        y='25'
+                        width='18'
+                        height='2'
+                        rx='1'
+                        fill='currentColor'
+                      ></rect>
+                    </g>
+                    <defs>
+                      <clipPath id='clip0_1128_3162'>
+                        <rect width='40' height='40' rx='6' fill='white'></rect>
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </button>
+                <Menu menuToggle={menuToggle} />
+              </div>
             </div>
-            <div className='ml-2 flex flex-col w-full h-full '>
+            <div className='flex flex-col w-full h-full '>
               <div
-                className='pl-20 fixed w-full bg-[#141517]'
+                className='fixed w-[96%] bg-[#141517] ml-20'
                 style={{ zIndex: 2 }}
               >
-                <div className='w-full bg-[#141517]'></div>
                 <Header />
               </div>
-              <div className='w-full pt-16 pl-14 flex' style={{ zIndex: 1 }}>
-                <div className='ml-10 mt-5 w-full'>{children}</div>
+              <div className='w-full pt-16 flex'>
+                <div
+                  className={`${menuToggle ? `ml-60` : 'ml-28'} mt-5 w-full`}
+                  style={{ zIndex: 1 }}
+                >
+                  {children}
+                </div>
               </div>
               <div
                 className={`flex flex-col justify-center ml-5 ${

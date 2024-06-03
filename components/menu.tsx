@@ -1,57 +1,26 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-export default function Menu() {
+export default function Menu(props: { menuToggle: boolean }) {
   const router = useRouter();
+  const path = usePathname();
+  useEffect(() => {
+    console.log(path);
+  }, [path]);
   return (
-    <div className='flex flex-col w-10 mr-5 mt-[0.4rem] ml-5'>
-      <div className='flex flex-col mt-1'>
-        <button className='flex items-center justify-center'>
-          <svg
-            width='40'
-            height='40'
-            viewBox='0 0 40 40'
-            fill='none'
-            xmlns='http://www.w3.org/2000/svg'
-            className='header_icon__8SHkt'
-          >
-            <g clip-path='url(#clip0_1128_3162)'>
-              <rect
-                x='11'
-                y='13'
-                width='18'
-                height='2'
-                rx='1'
-                fill='currentColor'
-              ></rect>
-              <rect
-                x='11'
-                y='19'
-                width='18'
-                height='2'
-                rx='1'
-                fill='currentColor'
-              ></rect>
-              <rect
-                x='11'
-                y='25'
-                width='18'
-                height='2'
-                rx='1'
-                fill='currentColor'
-              ></rect>
-            </g>
-            <defs>
-              <clipPath id='clip0_1128_3162'>
-                <rect width='40' height='40' rx='6' fill='white'></rect>
-              </clipPath>
-            </defs>
-          </svg>
-        </button>
+    <div
+      className={`flex flex-col ${
+        props.menuToggle ? `w-52` : `w-10`
+      } mr-5 ml-5 mt-10 `}
+    >
+      <div className='flex flex-col'>
         <button
-          className='-black  mt-6 items-center justify-center flex flex-col text-green-500'
+          className={`-black items-center justify-center flex ${
+            props.menuToggle ? '' : `flex-col`
+          }`}
           onClick={() => {
             router.push('/all-live');
           }}
@@ -62,7 +31,7 @@ export default function Menu() {
             viewBox='0 0 26 26'
             fill='none'
             xmlns='http://www.w3.org/2000/svg'
-            className='header_icon__8SHkt'
+            className={`${path === '/all-live' ? 'text-green-500' : ''}`}
           >
             <path
               fill-rule='evenodd'
