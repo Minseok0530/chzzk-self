@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect, SetStateAction } from 'react';
+import { useState, useEffect, SetStateAction, useDebugValue } from 'react';
 import Image from 'next/image';
 import supabase from '../../../api/supabase';
+import { Tables } from '../../../supabase';
 
 export default function Page() {
   const [email, setEmail] = useState<string>('');
@@ -10,6 +11,7 @@ export default function Page() {
   const [id, setId] = useState<string>('');
   const [isButtonDisabled, setButtonDisable] = useState(false);
   const [selectedFile, setFileSelected] = useState<FileList>();
+  const [userName, setUserName] = useState<string>('');
   //   supabase.auth.signUp({email, password})
 
   const [file, setFile] = useState();
@@ -53,9 +55,8 @@ export default function Page() {
     if (event.target.files === null) return;
     setFileSelected(event.target.files);
   };
-
   // const emailState
-  const signUp = async (email: string, password: string) => {
+  const signUp = async (email: string, password: string, user_name: string) => {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -77,13 +78,30 @@ export default function Page() {
         email,
         password,
       });
+    const { data: insertData } = await supabase
+      .from('user_table')
+      .insert([
+        {
+          partner_set: false,
+          user_name: user_name,
+          user_password: password,
+        },
+      ])
+      .returns<Tables<'user_table'>>();
 
-    // await supabase.storage.from('user_avatar').upload('', );
-    console.log(logindata, loginError);
+    await supabase.storage
+      .from('user_avatar')
+      .upload('/test', selectedFile !== undefined ? selectedFile[0] : '');
+    console.log(logindata, loginError, insertData);
+    if (logindata === null) alert('회원가입에 실패했습니다.');
+    else alert('회원가입이 완료되었습니다.');
   };
 
   const changeEmail = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
+  };
+  const changeUserId = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserName(e.target.value);
   };
   const changePassword = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -117,8 +135,8 @@ export default function Page() {
           <input
             className='w-full'
             placeholder='아이디'
-            onChange={async (a) => {
-              await changeEmail(a);
+            onChange={(e) => {
+              changeUserId(e);
             }}
           />
         </div>
@@ -134,7 +152,13 @@ export default function Page() {
         </div>
         <div className='w-[100%] h-12 items-center flex pl-2'>
           <span className='material-symbols-outlined'>mail</span>
-          <input placeholder='이메일' className='w-full' />
+          <input
+            placeholder='이메일'
+            className='w-full'
+            onChange={async (a) => {
+              await changeEmail(a);
+            }}
+          />
         </div>
       </div>
       {/* <div className='border flex flex-col justify-center items-center w-[460px] mt-5'>
@@ -164,7 +188,7 @@ export default function Page() {
       </div>
       <button
         className='w-[28rem] border mt-5 rounded-md py-4 bg-green-600 text-white'
-        onClick={() => signUp(email, password)}
+        onClick={() => signUp(email, password, userName)}
         disabled={isButtonDisabled}
       >
         회원가입
