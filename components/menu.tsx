@@ -25,70 +25,18 @@ export default function Menu(props: { menuToggle: boolean }) {
             router.push('/all-live');
           }}
         >
-          <svg
-            width='26'
-            height='26'
-            viewBox='0 0 26 26'
-            fill='none'
-            xmlns='http://www.w3.org/2000/svg'
-            className={`${path === '/all-live' ? 'text-green-500' : ''}`}
-          >
-            <path
-              fill-rule='evenodd'
-              clip-rule='evenodd'
-              d='M23.611 7.11908C23.8044 7.26028 23.9188 7.48537 23.9188 7.72486V17.9768C23.9188 18.2163 23.8044 18.4413 23.611 18.5826C23.4176 18.7238 23.1683 18.7641 22.9402 18.6911L18.5714 17.2931C18.2608 17.1937 18.05 16.9049 18.05 16.5788V9.12285C18.05 8.79669 18.2608 8.50793 18.5714 8.40853L22.9402 7.01054C23.1683 6.93755 23.4176 6.97788 23.611 7.11908ZM19.55 9.67032V16.0313L22.4188 16.9493V8.75232L19.55 9.67032Z'
-              fill='#9da5b6'
-            ></path>
-            <path
-              d='M9.9909 10.7164L13.5364 12.7634L9.9909 14.8103V10.7164ZM9.81362 14.9127C9.81369 14.9126 9.81376 14.9126 9.81384 14.9125L9.81362 14.9127Z'
-              fill='#9da5b6'
-              stroke='#9da5b6'
-              stroke-width='1.18182'
-            ></path>
-            <rect
-              x='3.65'
-              y='4.88635'
-              width='15.0455'
-              height='15.8727'
-              rx='3.97727'
-              stroke='#9da5b6'
-              stroke-width='1.5'
-            ></rect>
-          </svg>
+          <span className='material-symbols-outlined'>videocam</span>
           <div className='text-[#9da5b6]' style={{ fontSize: '0.6rem' }}>
             전체<p>라이브</p>
           </div>
         </button>
         <button
-          className='-black  mt-6 items-center justify-center flex flex-col'
+          className='-black mt-6 items-center justify-center flex flex-col'
           onClick={() => {
             router.push('/review');
           }}
         >
-          <svg
-            width='26'
-            height='26'
-            viewBox='0 0 26 26'
-            fill='none'
-            xmlns='http://www.w3.org/2000/svg'
-            className='header_icon__8SHkt'
-          >
-            <path
-              d='M6.34333 17.8745C6.09832 17.5405 5.62895 17.4684 5.29497 17.7134C4.961 17.9584 4.88888 18.4278 5.13389 18.7618L6.34333 17.8745ZM21.25 13C21.25 17.5563 17.5564 21.25 13 21.25V22.75C18.3848 22.75 22.75 18.3848 22.75 13H21.25ZM13 4.75C17.5564 4.75 21.25 8.44365 21.25 13H22.75C22.75 7.61522 18.3848 3.25 13 3.25V4.75ZM13 21.25C10.2679 21.25 7.84594 19.9227 6.34333 17.8745L5.13389 18.7618C6.90691 21.1786 9.77001 22.75 13 22.75V21.25ZM5.67064 9.20878C7.04465 6.55834 9.81179 4.75 13 4.75V3.25C9.22979 3.25 5.96066 5.39017 4.33895 8.51842L5.67064 9.20878Z'
-              fill='#9da5b6'
-            ></path>
-            <path
-              d='M4.37274 5.31824V8.86369H7.9182'
-              stroke='#9da5b6'
-              stroke-width='1.5'
-              stroke-miterlimit='10'
-              stroke-linecap='round'
-            ></path>
-            <path
-              d='M15.8364 12.354C16.1515 12.5359 16.1515 12.9908 15.8363 13.1727L11.9363 15.4244C11.6212 15.6064 11.2273 15.3789 11.2273 15.015V10.5117C11.2273 10.1478 11.6212 9.92034 11.9363 10.1023L15.8364 12.354Z'
-              fill='#9da5b6'
-            ></path>
-          </svg>
+          <span className='material-symbols-outlined'>replay</span>
           <div className='text-[#9da5b6]' style={{ fontSize: '0.6rem' }}>
             다시보기
           </div>
@@ -99,51 +47,7 @@ export default function Menu(props: { menuToggle: boolean }) {
             router.push('/category');
           }}
         >
-          <svg
-            width='26'
-            height='26'
-            viewBox='0 0 26 26'
-            fill='none'
-            xmlns='http://www.w3.org/2000/svg'
-            className='header_icon__8SHkt'
-          >
-            <rect
-              x='5.04996'
-              y='4.88635'
-              width='6.5'
-              height='6.5'
-              rx='1.25'
-              stroke='#9da5b6'
-              stroke-width='1.5'
-            ></rect>
-            <rect
-              x='14.8818'
-              y='4.83635'
-              width='6.6'
-              height='6.6'
-              rx='1.3'
-              stroke='#9da5b6'
-              stroke-width='1.4'
-            ></rect>
-            <rect
-              x='14.9318'
-              y='14.834'
-              width='6.5'
-              height='6.5'
-              rx='1.25'
-              stroke='#9da5b6'
-              stroke-width='1.5'
-            ></rect>
-            <rect
-              x='5.04996'
-              y='14.834'
-              width='6.5'
-              height='6.5'
-              rx='1.25'
-              stroke='#9da5b6'
-              stroke-width='1.5'
-            ></rect>
-          </svg>
+          <span className='material-symbols-outlined'>grid_view</span>
           <div className='text-[#9da5b6]' style={{ fontSize: '0.6rem' }}>
             카테고리
           </div>
@@ -154,20 +58,7 @@ export default function Menu(props: { menuToggle: boolean }) {
             router.push('/following');
           }}
         >
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            width='26'
-            height='26'
-            fill='none'
-            className='header_icon__8SHkt'
-          >
-            <path
-              stroke='#9da5b6'
-              stroke-linejoin='round'
-              stroke-width='1.5'
-              d='M13.027 7.725C11.536 3.835 4 4.413 4 10.295c0 2.764 2.041 6.39 7.898 10.126.133.085.585.327 1.102.329.517.002.94-.226 1.055-.3C19.948 16.704 22 13.067 22 10.296c0-5.848-7.473-6.483-8.973-2.57Z'
-            ></path>
-          </svg>
+          <span className='material-symbols-outlined'>favorite</span>
           <div className='text-[#9da5b6]' style={{ fontSize: '0.6rem' }}>
             팔로잉
           </div>
