@@ -127,10 +127,10 @@ export default function Home() {
               style={{ overflow: 'hidden' }}
             >
               <ReactPlayer
-                url={'https://www.youtube.com/watch?v=f7NNLr2g27k?rel=0'}
+                url={'https://youtu.be/3BBshtoMFKk?t=18'}
                 width='100%'
                 height='22rem'
-                playing={false}
+                playing={true}
                 muted={true}
                 loop={true}
                 controls={false}
@@ -163,7 +163,7 @@ export default function Home() {
                     21명의 시청
                   </div>
                 </div>
-                <div className='font-bold text-xl'>세키로 용윤의길 도전</div>
+                <div className='font-bold text-xl'>황금나무의 그림자DLC</div>
                 <div className='rounded-full mt-44 flex items-center w-full'>
                   <div className='flex items-center w-full justify-between'>
                     <div className='flex items-center'>
@@ -175,12 +175,12 @@ export default function Home() {
                         alt=''
                       />
                       <div className='flex flex-col'>
-                        <div className='text-2xl ml-5'>김뉴비</div>
+                        <div className='text-2xl ml-5'>엘든링 온다니까!</div>
                         <div className='flex ml-5 text-green-500'>
                           <span className='material-symbols-outlined'>
                             stadia_controller
                           </span>
-                          세키로
+                          엘든링
                         </div>
                       </div>
                     </div>

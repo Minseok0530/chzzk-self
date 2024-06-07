@@ -1,6 +1,8 @@
 'use client';
+
 import Image from 'next/image';
 import ReactPlayer from 'react-player';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
   return (
