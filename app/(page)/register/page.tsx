@@ -1,11 +1,19 @@
 'use client';
-
-import { useState, useEffect, SetStateAction, useDebugValue } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import supabase from '../../../api/supabase';
+import { sign } from '../../../api/jwtutil';
+import { useRouter } from 'next/navigation';
 import { Tables } from '../../../supabase';
 
+const PagePush = () => {
+  const router = useRouter();
+  return router;
+};
+
 export default function Page() {
+  useEffect(() => {}, []);
+
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [id, setId] = useState<string>('');
@@ -57,44 +65,23 @@ export default function Page() {
   };
   // const emailState
   const signUp = async (email: string, password: string, user_name: string) => {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-    setButtonDisable(true);
-    if (error) {
-      console.error(error.message);
-      setButtonDisable(false);
+    if (email === '' || password === '' || user_name === '') {
+      alert('모든 항목을 작성해야합니다');
       return;
-    } else console.log(data);
-    setTimeout(() => {
-      setButtonDisable(false);
-    }, 3000);
-    // await supabase.auth.signUp({
-    //  options:{data:{}}
-    // })
-    const { data: logindata, error: loginError } =
-      await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-    const { data: insertData } = await supabase
-      .from('user_table')
-      .insert([
-        {
-          partner_set: false,
-          user_name: user_name,
-          user_password: password,
-        },
-      ])
-      .returns<Tables<'user_table'>>();
+    }
+    if (password.length < 5) {
+      alert('비밀번호는 5자 이상이어야합니다');
+      return;
+    }
+    const signData = sign(user_name);
+    console.log(signData);
 
-    await supabase.storage
-      .from('user_avatar')
-      .upload('/test', selectedFile !== undefined ? selectedFile[0] : '');
-    console.log(logindata, loginError, insertData);
-    if (logindata === null) alert('회원가입에 실패했습니다.');
-    else alert('회원가입이 완료되었습니다.');
+    await supabase
+      .from('user_table')
+      .insert([{ user_name: user_name, user_password: password }])
+      .returns<Tables<'user_table'>>();
+    const router = PagePush();
+    router.push('/');
   };
 
   const changeEmail = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -155,8 +142,8 @@ export default function Page() {
           <input
             placeholder='이메일'
             className='w-full'
-            onChange={async (a) => {
-              await changeEmail(a);
+            onChange={async (e) => {
+              await changeEmail(e);
             }}
           />
         </div>
