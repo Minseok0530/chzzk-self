@@ -8,12 +8,6 @@ import Link from 'next/link';
 
 import Image, { StaticImageData } from 'next/image';
 
-import eldenring from '../public/category/Eldenring.jpg';
-import justchat from '../public/category/justchat.png';
-import lol from '../public/category/lol.jpg';
-import mhw from '../public/category/Monster_hunter.jpg';
-import vargame from '../public/category/varioust_game.png';
-
 const index = ['1번 제목', '2번 제목', '3번 제목'];
 // async function getAllLink() {
 

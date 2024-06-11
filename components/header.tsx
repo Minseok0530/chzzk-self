@@ -2,13 +2,26 @@
 
 import Image from 'next/image';
 import logo from '../public/chzzk-logo.gif';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { getCookies } from '../api/getcookie';
+import { log } from 'console';
 
 // eslint-disable-next-line @next/next/no-async-client-component
 
 export default function Page() {
   let clickFinder = useRef(false);
+  let idData = '';
+  const [profileClick, setClickbool] = useState(true);
+
+  const [data, setData] = useState('');
+  useEffect(() => {
+    async function loginData() {
+      const data = await getCookies();
+      setData(data);
+    }
+    loginData();
+  }, []);
   const searchClick = () => {
     clickFinder.current = !clickFinder.current ? true : false;
     console.log(clickFinder);
@@ -63,11 +76,30 @@ export default function Page() {
               light_mode
             </span>
           </button>
-          <Link href={'/login'}>
-            <button className='border border-gray-700 rounded-lg w-20 hover:bg-slate-500'>
-              로그인
-            </button>
-          </Link>
+          {idData}
+          <div>
+            {data === '' ? (
+              <Link href={'/login'}>
+                <button className='border border-gray-700 rounded-lg w-20 hover:bg-slate-500'>
+                  로그인
+                </button>
+              </Link>
+            ) : (
+              <div>
+                <button onClick={() => {}}>
+                  <Image
+                    className={`rounded-full border border-green-900 border-10 hover:border-gray-600 ${
+                      profileClick === true ? '' : ''
+                    }`}
+                    src={'/default_avatar/default_avatar.png'}
+                    width={40}
+                    height={40}
+                    alt=''
+                  />
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -62,11 +62,11 @@ export default function Page() {
   const signUp = async (email: string, password: string, user_name: string) => {
     if (email === '' || password === '' || user_name === '') {
       alert('모든 항목을 작성해야합니다');
-      return;
+      return false;
     }
     if (password.length < 5) {
       alert('비밀번호는 5자 이상이어야합니다');
-      return;
+      return false;
     }
 
     const { data } = await supabase
@@ -81,7 +81,7 @@ export default function Page() {
       .from('user_table')
       .insert([{ user_name: user_name, user_password: password }])
       .returns<Tables<'user_table'>>();
-    setPageBool(true);
+    return true;
   };
 
   const changeEmail = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -176,9 +176,9 @@ export default function Page() {
 
       <button
         className='w-[28rem] border mt-5 rounded-md py-4 bg-green-600 text-white'
-        onClick={() => {
-          signUp(email, password, userName);
-          router.push('/');
+        onClick={async () => {
+          const longinData = await signUp(email, password, userName);
+          if (longinData === true) router.push('/');
         }}
         disabled={isButtonDisabled}
       >
