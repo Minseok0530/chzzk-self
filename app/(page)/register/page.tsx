@@ -6,20 +6,15 @@ import { sign } from '../../../api/jwtutil';
 import { useRouter } from 'next/navigation';
 import { Tables } from '../../../supabase';
 
-const PagePush = () => {
-  const router = useRouter();
-  return router;
-};
-
 export default function Page() {
   useEffect(() => {}, []);
-
+  const router = useRouter();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [id, setId] = useState<string>('');
   const [isButtonDisabled, setButtonDisable] = useState(false);
   const [selectedFile, setFileSelected] = useState<FileList>();
   const [userName, setUserName] = useState<string>('');
+  const [pagePush, setPageBool] = useState(false);
   //   supabase.auth.signUp({email, password})
 
   const [file, setFile] = useState();
@@ -73,6 +68,12 @@ export default function Page() {
       alert('비밀번호는 5자 이상이어야합니다');
       return;
     }
+
+    const { data } = await supabase
+      .from('user_table')
+      .select('*')
+      .returns<Tables<'user_table'>>();
+
     const signData = sign(user_name);
     console.log(signData);
 
@@ -80,8 +81,7 @@ export default function Page() {
       .from('user_table')
       .insert([{ user_name: user_name, user_password: password }])
       .returns<Tables<'user_table'>>();
-    const router = PagePush();
-    router.push('/');
+    setPageBool(true);
   };
 
   const changeEmail = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -173,9 +173,13 @@ export default function Page() {
           파일 업로드
         </button> */}
       </div>
+
       <button
         className='w-[28rem] border mt-5 rounded-md py-4 bg-green-600 text-white'
-        onClick={() => signUp(email, password, userName)}
+        onClick={() => {
+          signUp(email, password, userName);
+          router.push('/');
+        }}
         disabled={isButtonDisabled}
       >
         회원가입
