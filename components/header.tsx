@@ -4,12 +4,14 @@ import Image from 'next/image';
 import logo from '../public/chzzk-logo.gif';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { getCookies } from '../api/getcookie';
+import { useRouter } from 'next/navigation';
+import { getCookies, deleteCookies } from '../api/getcookie';
 import { log } from 'console';
 
 // eslint-disable-next-line @next/next/no-async-client-component
 
 export default function Page() {
+  const router = useRouter();
   let clickFinder = useRef(false);
   let idData = '';
   const [profileClick, setClickbool] = useState(true);
@@ -86,17 +88,24 @@ export default function Page() {
               </Link>
             ) : (
               <div>
-                <button onClick={() => {}}>
-                  <Image
-                    className={`rounded-full border border-green-900 border-10 hover:border-gray-600 ${
-                      profileClick === true ? '' : ''
-                    }`}
-                    src={'/default_avatar/default_avatar.png'}
-                    width={40}
-                    height={40}
-                    alt=''
-                  />
-                </button>
+                <Link href={'/profile'}>
+                  <button
+                    onClick={() => {
+                      //deleteCookies();
+                      router.refresh();
+                    }}
+                  >
+                    <Image
+                      className={`rounded-full border border-green-900 border-10 hover:border-gray-600 ${
+                        profileClick === true ? '' : ''
+                      }`}
+                      src={'/default_avatar/default_avatar.png'}
+                      width={40}
+                      height={40}
+                      alt=''
+                    />
+                  </button>
+                </Link>
               </div>
             )}
           </div>

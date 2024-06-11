@@ -11,4 +11,8 @@ const getCookies = async () => {
   return jwtData == null ? '' : jwtData.id;
 };
 
-export { getCookies };
+const deleteCookies = async () => {
+  cookies().delete('test');
+};
+
+export { getCookies, deleteCookies };

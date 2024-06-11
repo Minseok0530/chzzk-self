@@ -1,9 +1,23 @@
+'use client';
+
 import Image from 'next/image';
-// import jwt from 'jsonwebtoken';
-// import { useState } from 'react';
-// import supabase from '../../../api/supabase';
+import { loginUtil } from '../../../api/loginutil';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
+  const router = useRouter();
+  const [userId, setUser] = useState('');
+  const [pw, setPassword] = useState('');
+
+  const changeuser = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUser(e.target.value);
+  };
+
+  const changePassword = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
   return (
     <div
       className='flex w-[100%] justify-center flex-col items-center'
@@ -51,12 +65,24 @@ export default function Page() {
         <div className='flex flex-col mt-5'>
           <div className='border w-[410px] h-[45px] rounded-t-md flex items-center pl-[17px]'>
             <span className='material-symbols-outlined'>person</span>
-            <input className='w-full' placeholder='아이디' />
+            <input
+              className='w-full'
+              placeholder='아이디'
+              onChange={(e) => {
+                changeuser(e);
+              }}
+            />
           </div>
 
           <div className='border w-[410px] h-[45px] rounded-b-md flex items-center pl-[17px]'>
             <span className='material-symbols-outlined'>lock</span>
-            <input className='w-full' placeholder='비밀번호' />
+            <input
+              className='w-full'
+              placeholder='비밀번호'
+              onChange={(e) => {
+                changePassword(e);
+              }}
+            />
           </div>
         </div>
         <div className='justify-between flex w-[410px] mt-[13px]'>
@@ -71,7 +97,15 @@ export default function Page() {
           </button>
           <button>IP보안</button>
         </div>
-        <button className='w-[410px] h-[52px] mt-[38px] rounded-md bg-[#09AA5C] text-white mb-5'>
+        <button
+          className='w-[410px] h-[52px] mt-[38px] rounded-md bg-[#09AA5C] text-white mb-5'
+          onClick={async () => {
+            const functionActive = await loginUtil(userId, pw);
+            if (functionActive === true) {
+              router.push('/');
+            }
+          }}
+        >
           로그인
         </button>
       </div>

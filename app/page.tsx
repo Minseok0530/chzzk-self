@@ -6,7 +6,7 @@ import supabase from '../api/supabase';
 import { Tables } from '../supabase';
 import Link from 'next/link';
 
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 
 const index = ['1번 제목', '2번 제목', '3번 제목'];
 // async function getAllLink() {
