@@ -64,7 +64,7 @@ export default function RootLayout({
                     xmlns='http://www.w3.org/2000/svg'
                     className='fixed'
                   >
-                    <g clip-path='url(#clip0_1128_3162)'>
+                    <g clipPath='url(#clip0_1128_3162)'>
                       <rect
                         x='11'
                         y='13'

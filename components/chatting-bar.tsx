@@ -1,7 +1,8 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {} from '../api/chat/';
+
+import { getCookies } from '../api/getcookie';
 import { useSocket } from './soket-provider';
 
 interface message {
@@ -13,6 +14,14 @@ const ChatPage = () => {
   const [currentMessage, setCurrentMessage] = useState('');
   const { socket, isConnected } = useSocket();
   const [userId, setUserId] = useState('');
+
+  // useEffect(() => {
+  //   async function findUserId() {
+  //     const userId = await getCookies();
+  //     setUserId(userId);
+  //   }
+  //   findUserId();
+  // }, []);
 
   useEffect(() => {
     if (!socket) {

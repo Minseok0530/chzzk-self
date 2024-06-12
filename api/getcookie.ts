@@ -6,9 +6,7 @@ const getCookies = async () => {
   const jwtData = jwt.decode(cookies().get('test')?.value ?? '') as {
     id: string;
   };
-
-  console.log(jwt.decode(cookies().get('test')?.value ?? ''));
-  return jwtData == null ? '' : jwtData.id;
+  return { id: jwtData == null ? '' : jwtData.id };
 };
 
 const deleteCookies = async () => {
