@@ -74,7 +74,11 @@ export default function Menu(props: { menuToggle: boolean }) {
       <div className='divide-x divide-solid border-gray-50 border'></div>
       <div></div>
       <div className='flex flex-col items-center mt-5'>
-        <Link href={'https://game.naver.com/'}>
+        <button
+          onClick={() => {
+            router.push('https://game.naver.com/');
+          }}
+        >
           <svg
             //첫번쨰
             width='26'
@@ -123,12 +127,16 @@ export default function Menu(props: { menuToggle: boolean }) {
           <div className='text-[#9da5b6]' style={{ fontSize: '0.75rem' }}>
             게임
           </div>
-        </Link>
+        </button>
       </div>
 
       <div className='flex flex-col items-center mt-5'>
-        <Link
-          href={'https://game.naver.com/esports/League_of_Legends/home'}
+        <button
+          onClick={() => {
+            router.push(
+              'https://game.naver.com/esports/League_of_Legends/home',
+            );
+          }}
           className='flex flex-col items-center'
         >
           <svg
@@ -186,12 +194,14 @@ export default function Menu(props: { menuToggle: boolean }) {
           <div className='text-[#9da5b6]' style={{ fontSize: '0.75rem' }}>
             E스포츠
           </div>
-        </Link>
+        </button>
       </div>
 
       <div className='flex flex-col items-center mt-5'>
-        <Link
-          href={'https://game.naver.com/original_series'}
+        <button
+          onClick={() => {
+            router.push('https://game.naver.com/original_series');
+          }}
           className='flex flex-col items-center'
         >
           <svg
@@ -220,12 +230,14 @@ export default function Menu(props: { menuToggle: boolean }) {
           <div className='text-[#9da5b6]' style={{ fontSize: '0.75rem' }}>
             오리지날
           </div>
-        </Link>
+        </button>
       </div>
 
       <div className='flex flex-col items-center mt-5'>
-        <Link
-          href={'https://game.naver.com/pcgame'}
+        <button
+          onClick={() => {
+            router.push('https://game.naver.com/pcgame');
+          }}
           className='flex flex-col items-center'
         >
           <svg
@@ -252,12 +264,14 @@ export default function Menu(props: { menuToggle: boolean }) {
           <div className='text-[#9da5b6]' style={{ fontSize: '0.75rem' }}>
             PC 게임
           </div>
-        </Link>
+        </button>
       </div>
 
       <div className='flex flex-col items-center mt-5'>
-        <Link
-          href={'https://game.naver.com/lounge/chzzk/home'}
+        <button
+          onClick={() => {
+            'https://game.naver.com/lounge/chzzk/home';
+          }}
           className='flex flex-col items-center'
         >
           <svg
@@ -287,7 +301,7 @@ export default function Menu(props: { menuToggle: boolean }) {
           <div className='text-[#9da5b6]' style={{ fontSize: '0.75rem' }}>
             치지직<p>라운지</p>
           </div>
-        </Link>
+        </button>
       </div>
 
       <div></div>
