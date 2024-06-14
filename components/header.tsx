@@ -13,14 +13,13 @@ import { log } from 'console';
 export default function Page() {
   const router = useRouter();
   let clickFinder = useRef(false);
-  let idData = '';
   const [profileClick, setClickbool] = useState(true);
 
   const [data, setData] = useState('');
   useEffect(() => {
     async function loginData() {
-      const data = await getCookies();
-      setData(data);
+      const idData = await getCookies();
+      setData(idData.id);
     }
     loginData();
   }, []);
@@ -78,7 +77,6 @@ export default function Page() {
               light_mode
             </span>
           </button>
-          {idData}
           <div>
             {data === '' ? (
               <Link href={'/login'}>
