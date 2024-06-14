@@ -11,7 +11,7 @@ export default function Page(props: { searchParams: { url: string } }) {
         width={'75%'}
         height={'45rem'}
       />
-      <Chat />
+      <Chat url={props.searchParams.url} />
     </div>
   );
 }

@@ -1,23 +1,25 @@
 import { useState, useEffect } from 'react';
 import supabase from './supabase';
 import { Tables } from '../supabase';
-
+import { getCookies } from './getcookie';
 interface Message {
   id: number;
   text: string;
   user: string;
   created_at: string;
 }
-export default function Page() {
+export default function Page(props: { url: string }) {
+  const [user, setUser] = useState('');
   const [message, setMessage] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
-
+  const urlChannel = props.url;
   useEffect(() => {
     const fetchMessage = async () => {
       const { data, error } = await supabase
         .from('chat_data')
         .select('*')
-        .order('created_at', { ascending: true });
+        .order('created_at', { ascending: true })
+        .eq('room_id', urlChannel);
       if (error) {
         console.log(error);
       } else {
@@ -27,24 +29,32 @@ export default function Page() {
     fetchMessage();
 
     supabase
-      .channel('test_chat')
+      .channel(urlChannel)
       .on(
         'postgres_changes',
         { event: '*', schema: 'public', table: 'chat_data' },
         (payload) => {
-          console.log('hello');
           setMessage((prev) => [...prev, payload.new as Message]);
         },
       )
       .subscribe();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    async function ID() {
+      const cookieData = await getCookies();
+      setUser(cookieData.id);
+    }
+    ID();
   }, []);
 
   const handleSendMessage = async () => {
     if (newMessage.trim().length > 0) {
-      const userId = 'Test';
+      const userId = user;
       const { data, error } = await supabase
         .from('chat_data')
-        .insert([{ text: newMessage, user: userId }]);
+        .insert([{ text: newMessage, user: userId, room_id: urlChannel }])
+        .returns<Tables<'chat_data'>>();
 
       if (error) {
         console.error(error);

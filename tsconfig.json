@@ -28,7 +28,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "component/menu.js",
-    "components/menu.js"
+    "components/menu.js",
+    "api/chat/index.js"
   ],
   "exclude": ["node_modules"]
 }
