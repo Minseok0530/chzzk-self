@@ -316,7 +316,6 @@ export default function Home() {
                         playing={false}
                         muted={true}
                         controls={false}
-                        onRewind={true}
                         style={{ pointerEvents: 'none' }}
                       />
                     </div>
