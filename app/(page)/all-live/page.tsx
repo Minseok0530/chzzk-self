@@ -14,18 +14,48 @@ async function allLive() {
       .returns<Tables<'video_list'>[]>()
   ).data;
 
-  return liveData?.map((o, i) => {
-    return o;
+  const userData = (
+    await supabase
+      .from('user_table')
+      .select('*')
+      .returns<Tables<'user_table'>[]>()
+  ).data;
+
+  if (!liveData) return;
+  const returnData = liveData.map((o) => {
+    const returnInfo = userData?.find((info) => {
+      if (info.id === o.streamer) return info;
+    });
+    if (!returnInfo)
+      return {
+        ...o,
+        user_name: '',
+      };
+    return {
+      ...o,
+      user_name: returnInfo.user_name,
+    };
   });
+  if (!returnData) return;
+  return returnData;
 }
 
 export default function Home() {
-  const [videoData, setVideoData] = useState<Tables<'video_list'>[]>([]);
+  const [videoData, setVideoData] = useState<
+    {
+      user_name: string | null;
+      category: string | null;
+      id: number;
+      link: string | null;
+      Name: string | null;
+      streamer: number | null;
+    }[]
+  >([]);
 
   useEffect(() => {
     const loadVideo = async () => {
       const allLiveData = await allLive();
-      if (allLiveData) setVideoData(allLiveData);
+      if (allLiveData) if (allLiveData) setVideoData(allLiveData);
     };
     loadVideo();
   }, []);
@@ -88,7 +118,7 @@ export default function Home() {
                   </div>
                 </button>{' '}
                 <div className='-mt-4'>
-                  <button className='ml-12'>{o.streamer}</button>
+                  <button className='ml-12'>{o.user_name}</button>
                   <button
                     className='flex ml-11 -mt-1 bg-[#242528] rounded-md justify-center px-2'
                     onClick={() => {

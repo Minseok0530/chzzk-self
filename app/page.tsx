@@ -58,12 +58,6 @@ async function getLink(maxnumber: number) {
   });
   if (!returnData) return;
 
-  returnData?.map((o) => {
-    if (o !== undefined) {
-      return o;
-    }
-  });
-
   return returnData;
 }
 
