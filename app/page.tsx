@@ -248,59 +248,62 @@ export default function Home() {
                   {data?.map((o, i) => {
                     if (o.link !== null)
                       return (
-                        <Link
-                          key={i}
-                          href={{
-                            pathname: '/videolive',
-                            query: { url: o?.link },
-                          }}
-                        >
-                          <div key={i} className='flex flex-col mr-5 mb-4 '>
-                            <button
-                              className='flex flex-col'
-                              onClick={() => {
-                                console.log('Click');
-                              }}
-                            >
-                              <ReactPlayer
-                                url={o.link}
-                                width='100%'
-                                height='100%'
-                                volume={0}
-                                playing={false}
-                                controls={false}
-                                style={{
-                                  pointerEvents: 'none',
-                                }}
-                              />
-                              <div className='flex mt-3'>
-                                <div className='flex'>
-                                  <Image
-                                    src={'/default_avatar/default_avatar.png'}
-                                    width={35}
-                                    height={35}
-                                    alt=''
-                                    className='rounded-full'
-                                  />
-                                </div>
-                                <div className='flex flex-col text-start ml-3'>
-                                  <p className='-mb-1'>{o.Name}</p>
-                                </div>
-                              </div>
-                            </button>{' '}
-                            <div className='-mt-4'>
-                              <button className='ml-12'>{o.user_name}</button>
+                        <div className='flex flex-col mr-5 mb-4 ' key={i}>
+                          <Link
+                            key={i}
+                            href={{
+                              pathname: '/videolive',
+                              query: { url: o?.link },
+                            }}
+                          >
+                            <div className='flex flex-col mr-5 mb-4 '>
                               <button
-                                className='flex ml-11 -mt-1 bg-[#242528] rounded-md justify-center px-2'
+                                className='flex flex-col'
                                 onClick={() => {
-                                  console.log('tag Click');
+                                  console.log('Click');
                                 }}
                               >
-                                {o.category}
+                                <ReactPlayer
+                                  url={o.link}
+                                  width='100%'
+                                  height='100%'
+                                  volume={0}
+                                  playing={false}
+                                  controls={false}
+                                  style={{
+                                    pointerEvents: 'none',
+                                  }}
+                                />
                               </button>
                             </div>
+                          </Link>
+
+                          <div className='flex'>
+                            <div className='flex'>
+                              <Image
+                                src={'/default_avatar/default_avatar.png'}
+                                width={35}
+                                height={35}
+                                alt=''
+                                className='rounded-full'
+                              />
+                            </div>
+                            <div className='flex flex-col text-start ml-3'>
+                              <p className='-mb-1'>{o.Name}</p>
+                            </div>
                           </div>
-                        </Link>
+                          <div className='-mt-4'>
+                            <button className='ml-12'>{o.user_name}</button>
+                            <button
+                              className='flex ml-11 -mt-1 bg-[#242528] rounded-md justify-center px-2'
+                              onClick={() => {
+                                console.log('tag Click');
+                              }}
+                            >
+                              {o.category}
+                            </button>
+                          </div>
+                        </div>
                       );
                   })}
                 </div>
