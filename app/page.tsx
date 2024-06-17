@@ -7,6 +7,7 @@ import { Tables } from '../supabase';
 import Link from 'next/link';
 
 import Image from 'next/image';
+import { link } from 'fs';
 
 const index = ['1번 제목', '2번 제목', '3번 제목'];
 // async function getAllLink() {
@@ -23,14 +24,47 @@ const index = ['1번 제목', '2번 제목', '3번 제목'];
 // }
 
 async function getLink(maxnumber: number) {
-  const linkdata = await supabase
+  const { data } = await supabase
     .from('video_list')
     .select('*')
     .limit(maxnumber)
     .returns<Tables<'video_list'>[]>();
-  if (!linkdata) return;
+  async function findUserName() {
+    const userData = await supabase
+      .from('user_table')
+      .select('*')
+      .returns<Tables<'user_table'>[]>();
 
-  if (linkdata) return linkdata.data;
+    return userData;
+  }
+
+  const userName = await findUserName();
+  if (!data || !userName) return [];
+  const returnData = data?.map((o) => {
+    const returninfo = userName.data?.find((data, i) => {
+      if (data.id === o.streamer) return data;
+    });
+    console.log(returninfo);
+    if (!returninfo) {
+      return {
+        ...o,
+        user_name: '',
+      };
+    }
+    return {
+      ...o,
+      user_name: returninfo?.user_name,
+    };
+  });
+  if (!returnData) return;
+
+  returnData?.map((o) => {
+    if (o !== undefined) {
+      return o;
+    }
+  });
+
+  return returnData;
 }
 
 async function category() {
@@ -52,8 +86,18 @@ async function category() {
 }
 
 export default function Home() {
-  const [data, setData] = useState<Tables<'video_list'>[]>([]);
+  const [data, setData] = useState<
+    {
+      category: string | null;
+      id: number;
+      link: string | null;
+      Name: string | null;
+      streamer: number | null;
+      user_name: string | null;
+    }[]
+  >([]);
   const [maxSize, setMaxSize] = useState(5);
+  const [userData, setUserData] = useState<Tables<'user_table'>>();
   const [category_data, setCategory] = useState<
     {
       category_name: string | null;
@@ -73,7 +117,8 @@ export default function Home() {
   useEffect(() => {
     const loadData = async () => {
       const data = await getLink(maxSize);
-      if (data) {
+
+      if (data !== null && data !== undefined) {
         setData(data);
       }
     };
@@ -250,7 +295,7 @@ export default function Home() {
                               </div>
                             </button>{' '}
                             <div className='-mt-4'>
-                              <button className='ml-12'>{o.streamer}</button>
+                              <button className='ml-12'>{o.user_name}</button>
                               <button
                                 className='flex ml-11 -mt-1 bg-[#242528] rounded-md justify-center px-2'
                                 onClick={() => {
