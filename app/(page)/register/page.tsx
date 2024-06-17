@@ -9,18 +9,18 @@ import { Tables } from '../../../supabase';
 export default function Page() {
   useEffect(() => {}, []);
   const router = useRouter();
-  const [email, setEmail] = useState<string>('');
+  const [name, setName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isButtonDisabled, setButtonDisable] = useState(false);
   const [selectedFile, setFileSelected] = useState<FileList>();
-  const [userName, setUserName] = useState<string>('');
+  const [userId, setUserId] = useState<string>('');
   const [pagePush, setPageBool] = useState(false);
   //   supabase.auth.signUp({email, password})
 
   const [file, setFile] = useState();
   const fileUpload = async () => {
     const { data: loginData, error } = await supabase.auth.signInWithPassword({
-      email: email,
+      email: name,
       password: password,
     });
     console.log(loginData.user);
@@ -59,8 +59,12 @@ export default function Page() {
     setFileSelected(event.target.files);
   };
   // const emailState
-  const signUp = async (email: string, password: string, user_name: string) => {
-    if (email === '' || password === '' || user_name === '') {
+  const signUp = async (
+    user_name: string,
+    user_id: string,
+    password: string,
+  ) => {
+    if (user_id === '' || password === '' || user_name === '') {
       alert('모든 항목을 작성해야합니다');
       return false;
     }
@@ -79,24 +83,26 @@ export default function Page() {
 
     await supabase
       .from('user_table')
-      .insert([{ user_name: user_name, user_password: password }])
+      .insert([
+        { user_name: user_name, user_password: password, user_id: user_id },
+      ])
       .returns<Tables<'user_table'>>();
     return true;
   };
 
-  const changeEmail = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
+  const changeName = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
   };
   const changeUserId = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUserName(e.target.value);
+    setUserId(e.target.value);
   };
   const changePassword = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
   useEffect(() => {
-    console.log('Email State : ', email);
-  }, [email]);
+    console.log('Email State : ', name);
+  }, [name]);
 
   useEffect(() => {
     console.log('Password State : ', password);
@@ -117,6 +123,16 @@ export default function Page() {
         className='-ml-[380px] -mt-[40px] -mb-[10px]'
       />
       <div className='border flex flex-col justify-center items-center w-[460px] rounded-lg'>
+        <div className='w-[100%] h-12 items-center border-b  flex pl-2'>
+          <span className='material-symbols-outlined'>mail</span>
+          <input
+            placeholder='닉네임'
+            className='w-full'
+            onChange={async (e) => {
+              await changeName(e);
+            }}
+          />
+        </div>
         <div className='w-[100%] h-12 items-center flex border-b pl-2'>
           <span className='material-symbols-outlined'>person</span>
           <input
@@ -127,7 +143,7 @@ export default function Page() {
             }}
           />
         </div>
-        <div className='w-[100%] h-12 items-center flex border-b pl-2'>
+        <div className='w-[100%] h-12 items-center flex pl-2'>
           <span className='material-symbols-outlined'>lock</span>
           <input
             placeholder='비밀번호'
@@ -137,29 +153,7 @@ export default function Page() {
             }}
           />
         </div>
-        <div className='w-[100%] h-12 items-center flex pl-2'>
-          <span className='material-symbols-outlined'>mail</span>
-          <input
-            placeholder='이메일'
-            className='w-full'
-            onChange={async (e) => {
-              await changeEmail(e);
-            }}
-          />
-        </div>
       </div>
-      {/* <div className='border flex flex-col justify-center items-center w-[460px] mt-5'>
-        <div className='w-full flex h-12 items-center '>
-          <span className='material-symbols-outlined'>person</span>
-          <input className='w-full' placeholder='이름'></input>
-        </div>
-        <div className='w-full flex h-12 items-center'>
-          <span className='material-symbols-outlined'>
-            perm_contact_calendar
-          </span>
-          <input className='w-full' placeholder='생년월일'></input>
-        </div>
-      </div> */}
       <div className='mt-5 w-[460px] border flex justify-center rounded-lg py-4'>
         <input
           type='file'
@@ -177,7 +171,7 @@ export default function Page() {
       <button
         className='w-[28rem] border mt-5 rounded-md py-4 bg-green-600 text-white'
         onClick={async () => {
-          const longinData = await signUp(email, password, userName);
+          const longinData = await signUp(name, userId, password);
           if (longinData === true) router.push('/');
         }}
         disabled={isButtonDisabled}
