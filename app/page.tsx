@@ -29,13 +29,8 @@ async function getLink(maxnumber: number) {
     .limit(maxnumber)
     .returns<Tables<'video_list'>[]>();
   if (!linkdata) return;
-  const sortLink = linkdata.data?.map((o) => {
-    if (o !== null) {
-      if (o) return { link: o.link, name: o.Name };
-    }
-  });
 
-  if (sortLink) return sortLink;
+  if (linkdata) return linkdata.data;
 }
 
 async function category() {
@@ -57,9 +52,7 @@ async function category() {
 }
 
 export default function Home() {
-  const [data, setData] = useState<
-    ({ link: string | null; name: string | null } | undefined)[]
-  >([]);
+  const [data, setData] = useState<Tables<'video_list'>[]>([]);
   const [maxSize, setMaxSize] = useState(5);
   const [category_data, setCategory] = useState<
     {
@@ -79,9 +72,9 @@ export default function Home() {
 
   useEffect(() => {
     const loadData = async () => {
-      const videoList = await getLink(maxSize);
-      if (videoList) {
-        setData(videoList);
+      const data = await getLink(maxSize);
+      if (data) {
+        setData(data);
       }
     };
     loadData();
@@ -214,38 +207,62 @@ export default function Home() {
               <div>
                 <div className='grid grid-cols-5'>
                   {data?.map((o, i) => {
-                    return (
-                      <Link
-                        key={i}
-                        href={{
-                          pathname: '/videolive',
-                          query: { url: o?.link },
-                        }}
-                      >
-                        <button
-                          className={`hover:bg-gray-800 mt-3 w-[100%] ${
-                            5 ? '' : 'mr-3'
-                          } flex flex-col items-center`}
-                          //onClick={() => pageVideoMove(o?.link ?? '')}
+                    if (o.link !== null)
+                      return (
+                        <Link
+                          key={i}
+                          href={{
+                            pathname: '/videolive',
+                            query: { url: o?.link },
+                          }}
                         >
-                          <div className='items-center w-[95%]'>
-                            <div className='text-start'>
+                          <div key={i} className='flex flex-col mr-5 mb-4 '>
+                            <button
+                              className='flex flex-col'
+                              onClick={() => {
+                                console.log('Click');
+                              }}
+                            >
                               <ReactPlayer
-                                url={o?.link === null ? '' : o?.link}
+                                url={o.link}
                                 width='100%'
-                                height='12rem'
+                                height='100%'
+                                volume={0}
                                 playing={false}
-                                muted={true}
                                 controls={false}
-                                onRewind={true}
-                                style={{ pointerEvents: 'none' }}
+                                style={{
+                                  pointerEvents: 'none',
+                                }}
                               />
-                              <div className=''>{o?.name}</div>
+                              <div className='flex mt-3'>
+                                <div className='flex'>
+                                  <Image
+                                    src={'/default_avatar/default_avatar.png'}
+                                    width={35}
+                                    height={35}
+                                    alt=''
+                                    className='rounded-full'
+                                  />
+                                </div>
+                                <div className='flex flex-col text-start ml-3'>
+                                  <p className='-mb-1'>{o.Name}</p>
+                                </div>
+                              </div>
+                            </button>{' '}
+                            <div className='-mt-4'>
+                              <button className='ml-12'>{o.streamer}</button>
+                              <button
+                                className='flex ml-11 -mt-1 bg-[#242528] rounded-md justify-center px-2'
+                                onClick={() => {
+                                  console.log('tag Click');
+                                }}
+                              >
+                                {o.category}
+                              </button>
                             </div>
                           </div>
-                        </button>
-                      </Link>
-                    );
+                        </Link>
+                      );
                   })}
                 </div>
                 <div className='flex justify-center mt-3 items-center mx-auto w-[96%]'>
@@ -319,7 +336,7 @@ export default function Home() {
                         style={{ pointerEvents: 'none' }}
                       />
                     </div>
-                    <div className='text-start'>{o?.name}</div>
+                    <div className='text-start'>{o?.Name}</div>
                   </button>
                 </Link>
               );

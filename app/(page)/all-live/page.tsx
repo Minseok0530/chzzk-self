@@ -20,15 +20,7 @@ async function allLive() {
 }
 
 export default function Home() {
-  const [videoData, setVideoData] = useState<
-    {
-      category: number | null;
-      id: number;
-      link: string | null;
-      Name: string | null;
-      streamer: string | null;
-    }[]
-  >([]);
+  const [videoData, setVideoData] = useState<Tables<'video_list'>[]>([]);
 
   useEffect(() => {
     const loadVideo = async () => {
@@ -74,7 +66,7 @@ export default function Home() {
                     width='100%'
                     height='100%'
                     volume={0}
-                    playing={true}
+                    playing={false}
                     controls={false}
                     style={{
                       pointerEvents: 'none',
