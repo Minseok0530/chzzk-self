@@ -3,8 +3,31 @@
 import Image from 'next/image';
 import ReactPlayer from 'react-player';
 import { useState, useEffect } from 'react';
+import supabase from '../../../api/supabase';
+import { Tables } from '../../../supabase';
 
-export default function Home() {
+export default function Home(props: { searchParams: { id: number } }) {
+  console.log(props.searchParams.id);
+  const id = props.searchParams.id;
+  const [userName, setUserName] = useState<string>('');
+  useEffect(() => {
+    async function dataSet() {
+      const { data } = await supabase
+        .from('user_table')
+        .select('*')
+        .eq('id', id)
+        .returns<Tables<'user_table'>>();
+
+      console.log('data', data);
+      if (data !== null) {
+        console.log(data.user_name);
+        setUserName(data.user_name ?? '');
+      }
+    }
+    dataSet();
+  }, [id]);
+  console.log('data : ', userName);
+
   return (
     <div className='flex justify-center flex-col'>
       <div className='flex flex-col'>
@@ -16,7 +39,7 @@ export default function Home() {
             alt=''
             className='rounded-full'
           />
-          <div>Proflie</div>
+          <div>{userName}</div>
         </div>
 
         <div className='border-b-[0.01rem] w-[98%]'>

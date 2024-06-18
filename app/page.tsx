@@ -248,7 +248,7 @@ export default function Home() {
                   {data?.map((o, i) => {
                     if (o.link !== null)
                       return (
-                        <div className='flex flex-col mr-5 mb-4 ' key={i}>
+                        <div className='flex flex-col mr-5 mb-4 h-60' key={i}>
                           <Link
                             key={i}
                             href={{
@@ -256,9 +256,9 @@ export default function Home() {
                               query: { url: o?.link },
                             }}
                           >
-                            <div className='flex flex-col mr-5 mb-4 '>
+                            <div className='flex flex-col mr-5 mb-4'>
                               <button
-                                className='flex flex-col'
+                                className='flex flex-col h-40'
                                 onClick={() => {
                                   console.log('Click');
                                 }}
@@ -269,6 +269,7 @@ export default function Home() {
                                   height='100%'
                                   volume={0}
                                   playing={false}
+                                  light={true}
                                   controls={false}
                                   style={{
                                     pointerEvents: 'none',
@@ -279,7 +280,13 @@ export default function Home() {
                           </Link>
 
                           <div className='flex'>
-                            <div className='flex'>
+                            <Link
+                              className='flex'
+                              href={{
+                                pathname: '/profile',
+                                query: { id: o.streamer },
+                              }}
+                            >
                               <Image
                                 src={'/default_avatar/default_avatar.png'}
                                 width={35}
@@ -287,7 +294,7 @@ export default function Home() {
                                 alt=''
                                 className='rounded-full'
                               />
-                            </div>
+                            </Link>
                             <div className='flex flex-col text-start ml-3'>
                               <p className='-mb-1'>{o.Name}</p>
                             </div>

@@ -1,3 +1,5 @@
+'use client';
+
 export default function Home() {
   return (
     <div>
@@ -10,7 +12,10 @@ export default function Home() {
           인기
         </button>
       </div>
-      <div>{/*영상이 들어갈 곳*/}</div>
+      <div>
+        <input className='flex border' type='file'></input>
+        {/*영상이 들어갈 곳*/}
+      </div>
     </div>
   );
 }
