@@ -1,6 +1,14 @@
 'use client';
+import { useEffect } from 'react';
+import supabase from '../../../api/supabase';
+import Uploader from '../../../components/uploader';
 
 export default function Home() {
+  useEffect(() => {
+    async function reviewVideo() {
+      const { data } = await supabase.storage.from('Videos').list();
+    }
+  }, []);
   return (
     <div>
       <div className='text-[1.7rem]'>다시보기</div>
@@ -13,7 +21,7 @@ export default function Home() {
         </button>
       </div>
       <div>
-        <input className='flex border' type='file'></input>
+        <Uploader />
         {/*영상이 들어갈 곳*/}
       </div>
     </div>

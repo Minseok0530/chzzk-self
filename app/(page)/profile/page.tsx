@@ -5,28 +5,34 @@ import ReactPlayer from 'react-player';
 import { useState, useEffect } from 'react';
 import supabase from '../../../api/supabase';
 import { Tables } from '../../../supabase';
+import { SearchParamsContext } from 'next/dist/shared/lib/hooks-client-context.shared-runtime';
 
-export default function Home(props: { searchParams: { id: number } }) {
-  console.log(props.searchParams.id);
+export default function Home(props: { searchParams: { id: string } }) {
+  console.log();
   const id = props.searchParams.id;
-  const [userName, setUserName] = useState<string>('');
+  const [userName, setUserName] = useState<string | null>('');
   useEffect(() => {
     async function dataSet() {
       const { data } = await supabase
         .from('user_table')
         .select('*')
         .eq('id', id)
-        .returns<Tables<'user_table'>>();
+        .returns<Tables<'user_table'>[]>();
 
       console.log('data', data);
-      if (data !== null) {
-        console.log(data.user_name);
-        setUserName(data.user_name ?? '');
+      const findData = data?.find((o) => {
+        console.log(o.id, id);
+        if (o.id === Number(id)) return o;
+      });
+      console.log(data?.[0].user_name);
+      console.log(findData);
+      if (findData) {
+        console.log(findData.user_name);
+        setUserName(findData.user_name);
       }
     }
     dataSet();
   }, [id]);
-  console.log('data : ', userName);
 
   return (
     <div className='flex justify-center flex-col'>

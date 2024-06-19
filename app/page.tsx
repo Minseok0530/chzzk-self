@@ -246,6 +246,7 @@ export default function Home() {
               <div>
                 <div className='grid grid-cols-5'>
                   {data?.map((o, i) => {
+                    console.log(typeof o.streamer);
                     if (o.link !== null)
                       return (
                         <div className='flex flex-col mr-5 mb-4 h-60' key={i}>
