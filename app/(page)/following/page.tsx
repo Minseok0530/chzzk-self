@@ -12,18 +12,14 @@ const font = Abel({
 
 export default function Page() {
   const [userId, setUserId] = useState('');
-
   useEffect(() => {
-    let loginUser = '';
     async function getLoginInfo() {
       const loginData = await getCookies();
-      loginUser = loginData.id;
-      // console.log(loginData);
-      setUserId(loginUser);
+      if (loginData) setUserId(loginData.name);
     }
     getLoginInfo();
   }, []);
-
+  async function sendMessage() {}
   useEffect(() => {}, []);
   return (
     <div>
@@ -51,7 +47,6 @@ export default function Page() {
         </>
       ) : (
         <>
-          {' '}
           <div>
             <div className='text-[1.7rem]'>팔로잉</div>
             <div className='flex mt-7'>

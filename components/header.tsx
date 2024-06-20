@@ -19,7 +19,7 @@ export default function Page() {
   useEffect(() => {
     async function loginData() {
       const idData = await getCookies();
-      setData(idData.id);
+      if (idData) setData(idData.name);
     }
     loginData();
   }, []);

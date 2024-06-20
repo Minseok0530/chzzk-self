@@ -43,7 +43,7 @@ export default function Page(props: { url: string }) {
   useEffect(() => {
     async function ID() {
       const cookieData = await getCookies();
-      setUser(cookieData.id);
+      if (cookieData) setUser(cookieData.name);
     }
     ID();
   }, []);
