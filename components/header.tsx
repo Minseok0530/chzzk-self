@@ -15,18 +15,18 @@ export default function Page() {
   let clickFinder = useRef(false);
   const [profileClick, setClickbool] = useState(true);
 
-  const [data, setData] = useState('');
+  const [data, setData] = useState<{ name: string; id: number }>({
+    name: '',
+    id: 0,
+  });
   useEffect(() => {
     async function loginData() {
       const idData = await getCookies();
-      if (idData) setData(idData.name);
+      console.log(idData);
+      if (idData) setData(idData);
     }
     loginData();
   }, []);
-  const searchClick = () => {
-    clickFinder.current = !clickFinder.current ? true : false;
-    console.log(clickFinder);
-  };
 
   return (
     <div>
@@ -78,7 +78,7 @@ export default function Page() {
             </span>
           </button>
           <div>
-            {data === '' ? (
+            {!data ? (
               <Link href={'/login'}>
                 <button className='border border-gray-700 rounded-lg w-20 hover:bg-slate-500'>
                   로그인
@@ -86,7 +86,7 @@ export default function Page() {
               </Link>
             ) : (
               <div>
-                <Link href={'/profile'}>
+                <Link href={{ pathname: '/profile', query: { id: data.id } }}>
                   <button
                     onClick={() => {
                       //deleteCookies();
