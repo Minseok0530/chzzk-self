@@ -1,13 +1,21 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import supabase from '../../../api/supabase';
 import Uploader from '../../../components/uploader';
+import { Tables } from '../../../supabase';
+import ReactPlayer from 'react-player';
 
 export default function Home() {
+  const [uploadData, setUploadData] = useState<Tables<'uploadVideo'>[]>([]);
   useEffect(() => {
-    async function reviewVideo() {
-      const { data } = await supabase.storage.from('Videos').list();
+    async function onMounted() {
+      const { data } = await supabase
+        .from('uploadVideo')
+        .select('*')
+        .returns<Tables<'uploadVideo'>[]>();
+      if (data) setUploadData(data);
     }
+    onMounted();
   }, []);
   return (
     <div>
@@ -22,7 +30,23 @@ export default function Home() {
       </div>
       <div>
         <Uploader />
-        {/*영상이 들어갈 곳*/}
+        <div className='gird grid-cols-5 flex'>
+          {uploadData.map((o, i) => {
+            return (
+              <div key={o.id}>
+                <ReactPlayer
+                  url={o.publicUrl ?? ''}
+                  alt=''
+                  width={100}
+                  height={100}
+                  loop={true}
+                  playing={true}
+                />
+                {o.video_name}
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

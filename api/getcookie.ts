@@ -8,6 +8,7 @@ const getCookies = async () => {
   const jwtData = jwt.decode(cookies().get('test')?.value ?? '') as {
     id: string;
   };
+  if (!jwtData || jwtData.id === '') return;
   const { data } = await supabase
     .from('user_table')
     .select('*')
