@@ -14,19 +14,20 @@ const loginUtil = async (user_Name: string, password: string) => {
       user_name: user_Name,
       user_password: password,
     })
-    .returns<Tables<'user_table'>>();
-
+    .returns<Tables<'user_table'>[]>();
+  console.log(data);
+  if (data?.length === 0) {
+    console.log('error');
+    cookies().set('test', '');
+    return;
+  }
   const userData = jwt.sign({ id: user_Name }, secret, {
     algorithm: 'HS256',
     expiresIn: '1h',
   });
-  if (data === null) {
-    cookies().set('test', '');
-    return false;
-  } else {
-    cookies().set('test', userData);
-    return true;
-  }
+
+  cookies().set('test', userData);
+  return true;
 };
 
 export { loginUtil };

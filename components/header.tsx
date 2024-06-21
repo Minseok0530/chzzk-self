@@ -15,14 +15,11 @@ export default function Page() {
   let clickFinder = useRef(false);
   const [profileClick, setClickbool] = useState(true);
 
-  const [data, setData] = useState<{ name: string; id: number }>({
-    name: '',
-    id: 0,
-  });
+  const [data, setData] = useState<{ name: string; id: number }>();
   useEffect(() => {
     async function loginData() {
       const idData = await getCookies();
-      console.log(idData);
+      console.log('data = ', idData);
       if (idData) setData(idData);
     }
     loginData();

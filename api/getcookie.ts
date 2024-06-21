@@ -18,7 +18,7 @@ const getCookies = async () => {
     if (o.user_name === jwtData.id) return o;
   });
   console.log(jwtData, datas);
-  if (datas) return { name: jwtData == null ? '' : jwtData.id, id: datas.id };
+  if (datas) return { name: !jwtData ? '' : jwtData.id, id: datas.id };
 };
 
 const deleteCookies = async () => {

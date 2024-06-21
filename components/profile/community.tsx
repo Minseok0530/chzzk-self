@@ -46,14 +46,19 @@ export default function Page(post: { postData: string }) {
   }
 
   return (
-    <div className='w-[94rem] flex flex-col h-[30rem] '>
+    <div className='w-[100%] flex flex-col h-[30rem] items-center'>
       <p>Community</p>
       <div className='h-20'>
-        {community.map((o) => {
+        {community.map((o, i) => {
           return (
-            <div className='flex' key={o.id}>
+            <div className='flex w-96 h-20' key={o.id}>
               <>
-                <button className='flex w-[90rem]'>
+                <button
+                  className='flex w-[90rem]'
+                  onClick={() => {
+                    console.log('Click', i);
+                  }}
+                >
                   <Image
                     src={'/default_avatar/default_avatar.png'}
                     width={30}

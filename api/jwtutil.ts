@@ -6,7 +6,7 @@ import { cookies } from 'next/headers';
 const secret = process.env.JWT_SECRET!;
 const sign = (userId: string) => {
   console.log('sign Active');
-  console.log(cookies().get(''));
+  console.log(cookies().get('test'));
   const userData = jwt.sign({ id: userId }, secret, {
     algorithm: 'HS256',
     expiresIn: '1h',

@@ -11,7 +11,7 @@ export default function Home(props: { searchParams: { id: string } }) {
   const id = props.searchParams.id;
   const [userName, setUserName] = useState<string | null>('');
   const [state, setState] = useState(0);
-  const array = [<Profile_Home key={0} />, <Comunity postData={id} key={id} />];
+  const array = [<Profile_Home key={0} />, <Comunity postData={id} key={1} />];
   useEffect(() => {
     async function dataSet() {
       const { data } = await supabase
