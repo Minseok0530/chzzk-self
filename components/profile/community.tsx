@@ -5,20 +5,14 @@ import supabase from '../../api/supabase';
 import { Tables } from '../../supabase';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function Page(post: { postData: string }) {
   const router = useRouter();
   const id = post.postData;
   console.log('in Comminity', id);
-  const [message, setMessage] = useState('');
-  const [title, setTitle] = useState('');
   const [community, setCommunity] = useState<Tables<'community'>[]>([]);
-  const inputMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setMessage(e.target.value);
-  };
-  const inputTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  };
+
   useEffect(() => {
     async function getDatas() {
       const { data } = await supabase
@@ -31,69 +25,81 @@ export default function Page(post: { postData: string }) {
     getDatas();
   }, [id]);
 
-  async function sendData() {
-    if (title === '' || message === '')
-      return alert('빈칸이 없도록 해주십시오');
+  // async function sendData() {
+  //   if (title === '' || message === '')
+  //     return alert('빈칸이 없도록 해주십시오');
 
-    const { data, error } = await supabase
-      .from('community')
-      .insert({ title: title, content: message, user_id: id })
-      .returns<Tables<'community'>>();
+  //   const { data, error } = await supabase
+  //     .from('community')
+  //     .insert({ title: title, content: message, user_id: id })
+  //     .returns<Tables<'community'>>();
 
-    if (error) {
-      console.error(error);
-    }
-  }
+  //   if (error) {
+  //     console.error(error);
+  //   }
+  // }
 
   return (
     <div className='w-[100%] flex flex-col h-[30rem] items-center'>
       <p>Community</p>
-      <div className='h-20'>
+      <div className='w-[95rem]'>
+        <button
+          className='hover:bg-gray-400'
+          onClick={() => {
+            router.push(`/profile/write?id=${id}`);
+          }}
+        >
+          어떤 이야기를 하실껀가요
+        </button>
+      </div>
+      <div className='w-[95rem]'>
         {community.map((o, i) => {
           return (
-            <div className='flex w-96 h-20' key={o.id}>
-              <>
-                <button
-                  className='flex w-[90rem]'
-                  onClick={() => {
-                    console.log('Click', i);
-                  }}
-                >
-                  <Image
-                    src={'/default_avatar/default_avatar.png'}
-                    width={30}
-                    height={30}
-                    alt=''
-                    className='rounded-full'
-                  />
-                  <div className='flex flex-col w-full'>
-                    <p className='bg-gray-900'>{o.title}</p>
-                    <p className='bg-gray-900'>{o.content}</p>
+            <div className='flex w-[80%]' key={o.id}>
+              <Link
+                className='flex w-[90rem]'
+                href={{
+                  pathname: '/profile/detail',
+                  query: { id: id, content_id: o.id },
+                }}
+              >
+                {' '}
+                <div className='bg-gray-800 border border-gray-700 rounded-lg p-5 mb-4 w-full'>
+                  <div className='flex justify-between items-center mb-2'>
+                    <span className='font-bold'>{o.user_id}</span>
                   </div>
-                </button>
-              </>
+                  <div className='mb-2 text-start'>
+                    <p>{o.content}</p>
+                  </div>
+                  <div className='flex justify-between items-center'>
+                    <span className='text-green-500 cursor-pointer'>
+                      댓글 1
+                    </span>
+                    <div className='flex items-center space-x-2'>
+                      <button className='text-gray-500 hover:text-gray-400'>
+                        <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          className='h-6 w-6'
+                          fill='none'
+                          viewBox='0 0 24 24'
+                          stroke='currentColor'
+                        >
+                          <path
+                            stroke-linecap='round'
+                            stroke-linejoin='round'
+                            stroke-width='2'
+                            d='M5 15l7-7 7 7'
+                          />
+                        </svg>
+                      </button>
+                      <span className='text-sm'>0</span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
             </div>
           );
         })}
-        <div className='flex flex-col'>
-          <input
-            className='w-96 mb-2 text-black'
-            onChange={(e) => inputTitle(e)}
-          />
-          <textarea
-            className='w-96 h-28 text-black'
-            onChange={(e) => inputMessage(e)}
-          />
-          <button
-            className='bg-green-700 w-full'
-            onClick={() => {
-              sendData();
-              router.refresh();
-            }}
-          >
-            올리기
-          </button>
-        </div>
       </div>
     </div>
   );

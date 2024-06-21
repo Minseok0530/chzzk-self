@@ -83,7 +83,12 @@ export default function Page() {
               </Link>
             ) : (
               <div>
-                <Link href={{ pathname: '/profile', query: { id: data.id } }}>
+                <Link
+                  href={{
+                    pathname: '/profile',
+                    query: { id: data.id },
+                  }}
+                >
                   <button
                     onClick={() => {
                       //deleteCookies();
