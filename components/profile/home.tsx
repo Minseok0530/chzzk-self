@@ -13,7 +13,7 @@ export default function Page() {
               url={'https://www.youtube.com/watch?v=YmgV7KfA_f8'}
               width='96%'
               height='22rem'
-              playing={true}
+              playing={false}
               muted={true}
               loop={true}
               controls={false}
