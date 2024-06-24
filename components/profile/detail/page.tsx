@@ -1,18 +1,21 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import supabase from '../../../api/supabase';
 import { Tables } from '../../../supabase';
 import { useRouter } from 'next/navigation';
+import { getCookies } from '../../../api/getcookie';
 export default function Home(props: {
   searchParams: { id: string; content_id: string };
 }) {
   const router = useRouter();
   const id = props.searchParams.id;
   const [userName, setUserName] = useState<string | null>('');
-  const [state, setState] = useState(0);
   const [contentData, setContentData] = useState<Tables<'community'>>();
+  const [nowUser, setNowUser] = useState<number>(0);
+  const [comment, setComment] = useState('');
+  const [loadData, setLoadData] = useState<Tables<'comment_table'>[]>([]);
 
   useEffect(() => {
     async function dataSet() {
@@ -22,16 +25,21 @@ export default function Home(props: {
         .eq('id', id)
         .returns<Tables<'user_table'>[]>();
 
-      console.log('data', data);
       const findData = data?.find((o) => {
-        console.log(o.id, id);
         if (o.id === Number(id)) return o;
       });
-      console.log(data?.[0].user_name);
-      console.log(findData);
       if (findData) {
-        console.log(findData.user_name);
         setUserName(findData.user_name);
+      }
+    }
+    async function commentLoad() {
+      const { data, error } = await supabase
+        .from('comment_table')
+        .select('*')
+        .eq('content_id', props.searchParams.content_id)
+        .returns<Tables<'comment_table'>[]>();
+      if (!error) {
+        setLoadData(data);
       }
     }
     async function contentData() {
@@ -40,12 +48,24 @@ export default function Home(props: {
         .select('*')
         .eq('id', props.searchParams.content_id)
         .returns<Tables<'community'>[]>();
-      console.log(data);
       if (data) setContentData(data[0]);
+      const cookieData = await getCookies();
+      if (cookieData) setNowUser(cookieData.id);
     }
     dataSet();
     contentData();
+    commentLoad();
   }, [id, props.searchParams.content_id]);
+  function changeComment(e: ChangeEvent<HTMLInputElement>) {
+    setComment(e.target.value);
+  }
+  async function commenUpload() {
+    await supabase.from('comment_table').insert({
+      content_id: props.searchParams.content_id,
+      user_id: nowUser,
+      comment: comment,
+    });
+  }
 
   return (
     <>
@@ -63,28 +83,7 @@ export default function Home(props: {
                 </div>
               </div>
               <p className='mb-2'>{contentData.content}</p>
-              <div className='flex justify-between items-center'>
-                <div></div>
-                <div className='flex items-center space-x-2'>
-                  <button className='text-gray-500 hover:text-gray-400'>
-                    <svg
-                      xmlns='http://www.w3.org/2000/svg'
-                      className='h-6 w-6'
-                      fill='none'
-                      viewBox='0 0 24 24'
-                      stroke='currentColor'
-                    >
-                      <path
-                        stroke-linecap='round'
-                        stroke-linejoin='round'
-                        stroke-width='2'
-                        d='M5 15l7-7 7 7'
-                      />
-                    </svg>
-                  </button>
-                  <span className='text-sm'>0</span>
-                </div>
-              </div>
+              <div className='flex justify-between items-center'></div>
             </div>
             <div className='border-t border-gray-700 pt-4'>
               <h3 className='text-lg font-semibold mb-4'>댓글</h3>
@@ -93,26 +92,27 @@ export default function Home(props: {
                   type='text'
                   className='flex-grow bg-gray-700 text-gray-300 p-2 rounded-lg placeholder-gray-500 focus:outline-none'
                   placeholder='댓글을 입력하세요'
+                  onChange={(e) => {
+                    changeComment(e);
+                  }}
                 />
+                <button
+                  className='bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500'
+                  onClick={() => {
+                    commenUpload();
+                  }}
+                >
+                  입력
+                </button>
               </div>
-              <div className='flex items-start mb-4'>
-                <div className='w-8 h-8 bg-gray-700 rounded-full mr-3'></div>
-                <div>
-                  <div className='flex items-center'>
-                    <span className='font-bold'>loserOne</span>
-                    <span className='text-sm text-gray-500 ml-2'>4시간 전</span>
-                  </div>
-                  <p>TEST2</p>
-                  <button className='text-gray-500 text-sm mt-1'>
-                    답글 쓰기
-                  </button>
-                </div>
-              </div>
-              <div className='flex justify-between items-center'>
-                <span className='text-sm text-gray-500'>
-                  등록순 · 인기순 · 최신순
-                </span>
-              </div>
+              {loadData.map((o) => {
+                return (
+                  <>
+                    <div>{o.user_id}</div>
+                    {o.comment}
+                  </>
+                );
+              })}
             </div>
           </div>
         </>
