@@ -10,6 +10,9 @@ export default function Menu(props: { menuToggle: boolean }) {
   useEffect(() => {
     console.log(path);
   }, [path]);
+  useEffect(() => {
+    async function name() {}
+  }, []);
   return (
     <div
       className={`flex flex-col ${
@@ -65,8 +68,10 @@ export default function Menu(props: { menuToggle: boolean }) {
         </button>
       </div>
       <div className='divide-x divide-solid border-gray-50 border'></div>
-      <div className='text-[#9da5b6]' style={{ fontSize: '0.9rem' }}>
-        추천
+      <div>
+        <div className='text-[#9da5b6]' style={{ fontSize: '0.9rem' }}>
+          추천
+        </div>
       </div>
       <div className='text-[#9da5b6]' style={{ fontSize: '0.9rem' }}>
         파트너
