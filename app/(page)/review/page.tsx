@@ -4,6 +4,7 @@ import supabase from '../../../api/supabase';
 import Uploader from '../../../components/uploader';
 import { Tables } from '../../../supabase';
 import ReactPlayer from 'react-player';
+import Link from 'next/link';
 
 export default function Home() {
   const [uploadData, setUploadData] = useState<Tables<'uploadVideo'>[]>([]);
@@ -28,25 +29,34 @@ export default function Home() {
           인기
         </button>
       </div>
-      <div>
+      <div className='w-full'>
         <Uploader />
-        <div className='gird grid-cols-5 flex'>
-          {uploadData.map((o, i) => {
-            return (
-              <div key={o.id}>
-                <ReactPlayer
-                  url={o.publicUrl ?? ''}
-                  alt=''
-                  width={100}
-                  height={100}
-                  loop={true}
-                  playing={true}
-                />
-                {o.video_name}
-              </div>
-            );
-          })}
-        </div>
+      </div>
+      <div className='grid grid-cols-5 gap-4'>
+        {uploadData.map((o, i) => {
+          return (
+            <div key={i} className='w-64 bg-gray-500'>
+              <Link
+                href={{
+                  pathname: '/videolive',
+                  query: { url: o?.publicUrl },
+                }}
+              >
+                <div className='bg-black border justify-center flex'>
+                  <ReactPlayer
+                    url={o.publicUrl ?? ''}
+                    alt=''
+                    width={100}
+                    height={100}
+                    loop={true}
+                    playing={false}
+                  />
+                </div>
+                <div className='bg-gray'>{o.video_name}</div>
+              </Link>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

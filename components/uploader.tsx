@@ -61,19 +61,21 @@ const Uploader = () => {
       setUploading(false);
     }
   }
-  return (
-    <div>
-      <input type='file' onChange={saveFile} />
-      <input type='text' onChange={changeName} className='text-black' />
-      <button
-        className='border bg-white text-zinc-950'
-        onClick={fileUpload}
-        disabled={uploading}
-      >
-        {uploading ? 'Uploading...' : 'Upload'}
-      </button>
-      {message && <p>{message}</p>}
-    </div>
-  );
+  if (!userId) return;
+  else
+    return (
+      <div>
+        <input type='file' onChange={saveFile} />
+        <input type='text' onChange={changeName} className='text-black' />
+        <button
+          className='border bg-white text-zinc-950'
+          onClick={fileUpload}
+          disabled={uploading}
+        >
+          {uploading ? 'Uploading...' : 'Upload'}
+        </button>
+        {message && <p>{message}</p>}
+      </div>
+    );
 };
 export default Uploader;

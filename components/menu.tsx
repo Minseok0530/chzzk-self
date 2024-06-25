@@ -112,7 +112,7 @@ export default function Menu(props: { menuToggle: boolean }) {
                 {' '}
                 <div className='flex'>
                   <Link
-                    className='flex'
+                    className='flex flex-col'
                     href={{
                       pathname: '/profile',
                       query: { id: o.id ? o.id : 1 },
@@ -125,8 +125,8 @@ export default function Menu(props: { menuToggle: boolean }) {
                       alt=''
                       className='rounded-full'
                     />
-                    <div className='flex flex-col text-start ml-3'>
-                      <p className='-mb-1'>{o.user_name}</p>
+                    <div className='flex flex-col text-start'>
+                      <p className='text-xs'>{o.user_name}</p>
                     </div>
                   </Link>
                 </div>
