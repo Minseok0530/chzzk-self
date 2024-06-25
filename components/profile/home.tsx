@@ -17,7 +17,7 @@ export default function Page() {
               muted={true}
               loop={true}
               controls={false}
-              onRewind={true}
+              onRewind={false}
               volume={0}
               config={{
                 youtube: {
@@ -48,7 +48,7 @@ export default function Page() {
                         muted={true}
                         loop={true}
                         controls={false}
-                        onRewind={true}
+                        onRewind={false}
                         volume={0}
                         config={{
                           youtube: {

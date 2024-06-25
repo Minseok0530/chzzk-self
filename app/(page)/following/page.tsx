@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { Abel } from 'next/font/google';
 import { getCookies } from '../../../api/getcookie';
 import { useEffect, useState } from 'react';
+import supabase from '../../../api/supabase';
+import { Tables } from '../../../supabase';
 
 const font = Abel({
   weight: ['400'],
@@ -12,6 +14,7 @@ const font = Abel({
 
 export default function Page() {
   const [userId, setUserId] = useState('');
+  const [followData, setFollowData] = useState<Tables<'follow_table'>[]>([]);
   useEffect(() => {
     async function getLoginInfo() {
       const loginData = await getCookies();
@@ -19,8 +22,24 @@ export default function Page() {
     }
     getLoginInfo();
   }, []);
-  async function sendMessage() {}
-  useEffect(() => {}, []);
+  useEffect(() => {
+    async function followData() {
+      const userData = await supabase
+        .from('user_table')
+        .select('*')
+        .eq('user_name', userId)
+        .returns<Tables<'user_table'>[]>();
+      if (userData) {
+        const { data } = await supabase
+          .from('follow_table')
+          .select('*')
+          .eq('from', userData.data?.[0].id ? userData.data?.[0].id : 2)
+          .returns<Tables<'follow_table'>[]>();
+        if (data) setFollowData(data);
+      }
+    }
+    followData();
+  }, [userId]);
   return (
     <div>
       {userId === '' ? (
@@ -47,6 +66,7 @@ export default function Page() {
         </>
       ) : (
         <>
+          {userId}
           <div>
             <div className='text-[1.7rem]'>팔로잉</div>
             <div className='flex mt-7'>
@@ -63,7 +83,11 @@ export default function Page() {
                 카테고리
               </button>
             </div>
-            <div>{/*영상이 들어갈 곳*/}</div>
+            <div>
+              {followData.map((o) => {
+                return o.to;
+              })}
+            </div>
           </div>
         </>
       )}

@@ -40,7 +40,7 @@ export default function Menu(props: { menuToggle: boolean }) {
           .select('*')
           .eq('id', o)
           .returns<Tables<'user_table'>[]>();
-        if (data && channel.length < 5) setChannel([...channel, data[0]]);
+        if (data && channel.length < 5) setChannel(data);
       });
     }
     loadUsers();
@@ -106,9 +106,9 @@ export default function Menu(props: { menuToggle: boolean }) {
           추천
         </div>
         <div>
-          {channel.map((o) => {
+          {channel.map((o, i) => {
             return (
-              <>
+              <div key={i}>
                 {' '}
                 <div className='flex'>
                   <Link
@@ -130,7 +130,7 @@ export default function Menu(props: { menuToggle: boolean }) {
                     </div>
                   </Link>
                 </div>
-              </>
+              </div>
             );
           })}
         </div>

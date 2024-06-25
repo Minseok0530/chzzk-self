@@ -160,7 +160,7 @@ export default function Home() {
                 muted={true}
                 loop={true}
                 controls={false}
-                onRewind={true}
+                onRewind={false}
                 volume={0}
                 config={{
                   youtube: {
