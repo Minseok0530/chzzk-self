@@ -3,16 +3,49 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import supabase from '../api/supabase';
+import { Tables } from '../supabase';
+import Image from 'next/image';
+import userAvatar from '../public/default_avatar/default_avatar.png';
 
 export default function Menu(props: { menuToggle: boolean }) {
   const router = useRouter();
   const path = usePathname();
+  const [users, setUsers] = useState<number[]>([]);
+  const [channel, setChannel] = useState<Tables<'user_table'>[]>([]);
   useEffect(() => {
     console.log(path);
   }, [path]);
   useEffect(() => {
-    async function name() {}
+    async function channelLoad() {
+      const { data } = await supabase
+        .from('uploadVideo')
+        .select('user_id')
+        .returns<{ user_id: number }[]>();
+      //console.log(data);
+      if (data) {
+        const idData = data.map((o) => {
+          return o.user_id;
+        });
+        setUsers([...new Set(idData)]);
+      }
+    }
+    channelLoad();
   }, []);
+  useEffect(() => {
+    async function loadUsers() {
+      users.map(async (o) => {
+        const { data } = await supabase
+          .from('user_table')
+          .select('*')
+          .eq('id', o)
+          .returns<Tables<'user_table'>[]>();
+        if (data && channel.length < 5) setChannel([...channel, data[0]]);
+      });
+    }
+    loadUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [users]);
   return (
     <div
       className={`flex flex-col ${
@@ -71,6 +104,35 @@ export default function Menu(props: { menuToggle: boolean }) {
       <div>
         <div className='text-[#9da5b6]' style={{ fontSize: '0.9rem' }}>
           추천
+        </div>
+        <div>
+          {channel.map((o) => {
+            return (
+              <>
+                {' '}
+                <div className='flex'>
+                  <Link
+                    className='flex'
+                    href={{
+                      pathname: '/profile',
+                      query: { id: o.id ? o.id : 1 },
+                    }}
+                  >
+                    <Image
+                      src={'/default_avatar/default_avatar.png'}
+                      width={35}
+                      height={35}
+                      alt=''
+                      className='rounded-full'
+                    />
+                    <div className='flex flex-col text-start ml-3'>
+                      <p className='-mb-1'>{o.user_name}</p>
+                    </div>
+                  </Link>
+                </div>
+              </>
+            );
+          })}
         </div>
       </div>
       <div className='text-[#9da5b6]' style={{ fontSize: '0.9rem' }}>
