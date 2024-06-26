@@ -6,9 +6,11 @@ import supabase from '../../../api/supabase';
 import { Tables } from '../../../supabase';
 import Profile_Home from '../../../components/profile/home';
 import Comunity from '../../../components/profile/community';
-import { getCookies } from '../../../api/getcookie';
-import { cookies } from 'next/headers';
+import { useRouter } from 'next/navigation';
+import { getCookies, deleteCookies } from '../../../api/getcookie';
+
 export default function Home(props: { searchParams: { id: string } }) {
+  const router = useRouter();
   const id = props.searchParams.id;
   const [userName, setUserName] = useState<string | null>('');
   const [state, setState] = useState(0);
@@ -74,39 +76,60 @@ export default function Home(props: { searchParams: { id: string } }) {
     <div className='flex justify-center flex-col'>
       <div className='flex flex-col justify-center'>
         <div className='flex ml-48'>
-          <Image
-            src={'/default_avatar/default_avatar.png'}
-            width={100}
-            height={100}
-            alt=''
-            className='rounded-full'
-          />
-          <div>{userName}</div>
-          {mine ? (
-            <button
-              onClick={() => {
-                window.location.reload();
-              }}
-            >
-              로그아웃
-            </button>
-          ) : (
-            <button
-              className={`${follow ? 'bg-green-500' : 'bg-gray-700'}`}
-              onClick={() => {
-                setFollow(!follow);
-                followFunction(!follow);
-              }}
-            >
-              {follow ? '팔로우됨' : '팔로우안됨'}
-            </button>
-          )}
+          <div className='flex'>
+            <div className='rounded-full border-2'>
+              <Image
+                src={'/default_avatar/default_avatar.png'}
+                width={70}
+                height={70}
+                alt=''
+                className='rounded-full p-1'
+              />
+            </div>
+            <div className='flex items-center ml-2 text-[2rem]'>{userName}</div>
+          </div>
+          <div className='flex items-center ml-[64rem]'>
+            {mine ? (
+              <button
+                className={`border-2 w-32 py-3 rounded-xl`}
+                onClick={() => {
+                  deleteCookies();
+                  router.push('/');
+                  window.location.reload();
+                }}
+              >
+                로그아웃
+              </button>
+            ) : (
+              <button
+                className={`${
+                  userData
+                    ? 'bg-black'
+                    : `${follow ? 'bg-green-500' : 'bg-gray-700'} `
+                } w-32 py-3 rounded-xl`}
+                onClick={() => {
+                  if (userData === 0) {
+                    alert(
+                      '로그인하지 않으면 팔로우 기능을 이용할 수 없습니다.',
+                    );
+                    return;
+                  }
+                  setFollow(!follow);
+                  followFunction(!follow);
+                }}
+              >
+                {follow ? '팔로우' : '팔로우'}
+              </button>
+            )}
+          </div>
         </div>
 
-        <div className='border-b-[0.01rem] w-[100%]'>
+        <div className='border-b-[0.01rem] w-[100%] mb-5 mt-5'>
           <div className='ml-48'>
             <button
-              className='bg-gray-700 mr-2'
+              className={`mr-4 border-b-[0.2rem] pb-2 ${
+                state === 0 ? 'border-white' : 'border-black'
+              }`}
               onClick={() => {
                 setState(0);
               }}
@@ -114,7 +137,9 @@ export default function Home(props: { searchParams: { id: string } }) {
               홈
             </button>
             <button
-              className='bg-gray-700 mr-2 border-b-[0.2rem]'
+              className={`mr-4 border-b-[0.2rem] pb-2 ${
+                state === 1 ? 'border-white' : 'border-black'
+              }`}
               onClick={() => {
                 setState(1);
               }}
@@ -122,7 +147,9 @@ export default function Home(props: { searchParams: { id: string } }) {
               동영상
             </button>
             <button
-              className='bg-gray-700 mr-2'
+              className={`mr-4 border-b-[0.2rem] pb-2 ${
+                state === 2 ? 'border-white' : 'border-black'
+              }`}
               onClick={() => {
                 setState(2);
               }}
@@ -130,7 +157,9 @@ export default function Home(props: { searchParams: { id: string } }) {
               커뮤니티
             </button>
             <button
-              className='bg-gray-700 mr-2'
+              className={`mr-4 border-b-[0.2rem] pb-2 ${
+                state === 3 ? 'border-white' : 'border-black'
+              }`}
               onClick={() => {
                 setState(3);
               }}
