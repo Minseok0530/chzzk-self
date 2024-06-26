@@ -72,8 +72,8 @@ export default function Home(props: { searchParams: { id: string } }) {
   }
   return (
     <div className='flex justify-center flex-col'>
-      <div className='flex flex-col'>
-        <div className='flex'>
+      <div className='flex flex-col justify-center'>
+        <div className='flex ml-48'>
           <Image
             src={'/default_avatar/default_avatar.png'}
             width={100}
@@ -83,7 +83,13 @@ export default function Home(props: { searchParams: { id: string } }) {
           />
           <div>{userName}</div>
           {mine ? (
-            <p>true</p>
+            <button
+              onClick={() => {
+                window.location.reload();
+              }}
+            >
+              로그아웃
+            </button>
           ) : (
             <button
               className={`${follow ? 'bg-green-500' : 'bg-gray-700'}`}
@@ -97,39 +103,41 @@ export default function Home(props: { searchParams: { id: string } }) {
           )}
         </div>
 
-        <div className='border-b-[0.01rem] w-[98%]'>
-          <button
-            className='bg-gray-700 mr-2'
-            onClick={() => {
-              setState(0);
-            }}
-          >
-            홈
-          </button>
-          <button
-            className='bg-gray-700 mr-2'
-            onClick={() => {
-              setState(1);
-            }}
-          >
-            동영상
-          </button>
-          <button
-            className='bg-gray-700 mr-2'
-            onClick={() => {
-              setState(2);
-            }}
-          >
-            커뮤니티
-          </button>
-          <button
-            className='bg-gray-700 mr-2'
-            onClick={() => {
-              setState(3);
-            }}
-          >
-            정보
-          </button>
+        <div className='border-b-[0.01rem] w-[100%]'>
+          <div className='ml-48'>
+            <button
+              className='bg-gray-700 mr-2'
+              onClick={() => {
+                setState(0);
+              }}
+            >
+              홈
+            </button>
+            <button
+              className='bg-gray-700 mr-2 border-b-[0.2rem]'
+              onClick={() => {
+                setState(1);
+              }}
+            >
+              동영상
+            </button>
+            <button
+              className='bg-gray-700 mr-2'
+              onClick={() => {
+                setState(2);
+              }}
+            >
+              커뮤니티
+            </button>
+            <button
+              className='bg-gray-700 mr-2'
+              onClick={() => {
+                setState(3);
+              }}
+            >
+              정보
+            </button>
+          </div>
         </div>
         {array[state]}
       </div>
