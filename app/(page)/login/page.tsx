@@ -66,7 +66,7 @@ export default function Page() {
           <div className='border w-[410px] h-[45px] rounded-t-md flex items-center pl-[17px]'>
             <span className='material-symbols-outlined'>person</span>
             <input
-              className='w-full'
+              className='w-full focus: outline-none'
               placeholder='아이디'
               onChange={(e) => {
                 changeuser(e);
@@ -77,7 +77,7 @@ export default function Page() {
           <div className='border w-[410px] h-[45px] rounded-b-md flex items-center pl-[17px]'>
             <span className='material-symbols-outlined'>lock</span>
             <input
-              className='w-full'
+              className='w-full focus: outline-none'
               placeholder='비밀번호'
               onChange={(e) => {
                 changePassword(e);
@@ -103,6 +103,8 @@ export default function Page() {
             const functionActive = await loginUtil(userId, pw);
             if (functionActive === true) {
               router.push('/');
+            } else {
+              alert('아이디 혹은 비밀번호가 틀렸습니다.');
             }
           }}
         >
