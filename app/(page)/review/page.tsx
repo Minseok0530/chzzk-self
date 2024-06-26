@@ -32,10 +32,10 @@ export default function Home() {
       <div className='w-full'>
         <Uploader />
       </div>
-      <div className='grid grid-cols-5 gap-4'>
+      <div className='grid grid-cols-5'>
         {uploadData.map((o, i) => {
           return (
-            <div key={i} className='w-64 bg-gray-500'>
+            <div key={i} className='w-[21.5rem] bg-gray-500 mb-3'>
               <Link
                 href={{
                   pathname: '/videolive',
@@ -47,7 +47,7 @@ export default function Home() {
                     url={o.publicUrl ?? ''}
                     alt=''
                     width={100}
-                    height={100}
+                    height={150}
                     loop={true}
                     playing={false}
                   />

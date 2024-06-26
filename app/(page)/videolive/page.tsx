@@ -1,7 +1,7 @@
 'use client';
 import ReactPlayer from 'react-player';
 import React from 'react';
-import Chat from '../../../api/index';
+import Chat from '../../../components/chat';
 
 export default function Page(props: { searchParams: { url: string } }) {
   return (
@@ -10,8 +10,11 @@ export default function Page(props: { searchParams: { url: string } }) {
         url={props.searchParams.url}
         width={'75%'}
         height={'45rem'}
+        light={true}
       />
-      <Chat url={props.searchParams.url} />
+      <div className='ml-5'>
+        <Chat url={props.searchParams.url} />
+      </div>
     </div>
   );
 }

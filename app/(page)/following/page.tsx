@@ -24,16 +24,16 @@ export default function Page() {
   }, []);
   useEffect(() => {
     async function followData() {
-      const userData = await supabase
+      const { data: userData } = await supabase
         .from('user_table')
         .select('*')
         .eq('user_name', userId)
         .returns<Tables<'user_table'>[]>();
-      if (userData) {
+      if (userData?.[0]) {
         const { data } = await supabase
           .from('follow_table')
-          .select('*')
-          .eq('from', userData.data?.[0].id ? userData.data?.[0].id : 2)
+          .select(' *')
+          .eq('from', userData[0].id)
           .returns<Tables<'follow_table'>[]>();
         if (data) setFollowData(data);
       }
