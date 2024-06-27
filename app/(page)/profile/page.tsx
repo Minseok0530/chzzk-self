@@ -17,6 +17,16 @@ export default function Home(props: { searchParams: { id: string } }) {
   const [mine, isMine] = useState(false);
   const [follow, setFollow] = useState(false);
   const [userData, setUserData] = useState(0);
+  const array = [
+    <Profile_Home key={0} />,
+    <>
+      <p>동영상</p>
+    </>,
+    <Comunity postData={id} key={1} state={'0'} />,
+    <>
+      <p>정보</p>
+    </>,
+  ];
 
   useEffect(() => {
     async function dataSet() {
@@ -56,18 +66,6 @@ export default function Home(props: { searchParams: { id: string } }) {
     }
     dataSet();
   }, [id, userData]);
-  useEffect(() => {}, []);
-
-  const array = [
-    <Profile_Home key={0} />,
-    <>
-      <p>동영상</p>
-    </>,
-    <Comunity postData={id} key={1} state={'0'} />,
-    <>
-      <p>정보</p>
-    </>,
-  ];
 
   async function followFunction(follow: boolean) {
     const data = await getCookies();
@@ -126,7 +124,7 @@ export default function Home(props: { searchParams: { id: string } }) {
                   followFunction(!follow);
                 }}
               >
-                {follow ? '팔로우됨' : '팔로우'}
+                {userData === 0 ? '로그인필요' : follow ? '팔로우됨' : '팔로우'}
               </button>
             )}
           </div>
