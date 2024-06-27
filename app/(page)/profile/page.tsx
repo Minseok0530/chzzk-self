@@ -16,35 +16,30 @@ export default function Home(props: { searchParams: { id: string } }) {
   const [state, setState] = useState(0);
   const [mine, isMine] = useState(false);
   const [follow, setFollow] = useState(false);
-  const [userData, setUserData] = useState<number>(0);
-  const commu = '0';
-  const array = [
-    <Profile_Home key={0} />,
-    <>
-      <p>동영상</p>
-    </>,
-    <Comunity postData={id} key={1} state={commu} />,
-    <>
-      <p>정보</p>
-    </>,
-  ];
+  const [userData, setUserData] = useState(0);
+
   useEffect(() => {
     async function dataSet() {
+      const cookieData = await getCookies();
       const { data } = await supabase
         .from('user_table')
         .select('*')
         .eq('id', id)
         .returns<Tables<'user_table'>[]>();
+      console.log(cookieData);
 
+      if (cookieData) {
+        setUserData(cookieData.id);
+        console.log('set Active');
+      }
+      console.log(userData);
       const findData = data?.find((o) => {
         if (o.id === Number(id)) return o;
       });
       if (findData) setUserName(findData.user_name);
-
-      const cookieData = await getCookies();
+      console.log(findData);
       if (cookieData) {
         if (findData?.id === cookieData.id) {
-          setUserData(cookieData.id);
           isMine(true);
           return;
         } else {
@@ -54,13 +49,26 @@ export default function Home(props: { searchParams: { id: string } }) {
             .eq('to', findData?.id)
             .eq('from', cookieData.id)
             .returns<Tables<'follow_table'>[]>();
-          console.log(data, findData?.id, cookieData.id);
+          console.log(data, findData?.id, cookieData.id, userData);
           if (data?.length) setFollow(true);
         }
       }
     }
     dataSet();
-  }, [id]);
+  }, [id, userData]);
+  useEffect(() => {}, []);
+
+  const array = [
+    <Profile_Home key={0} />,
+    <>
+      <p>동영상</p>
+    </>,
+    <Comunity postData={id} key={1} state={'0'} />,
+    <>
+      <p>정보</p>
+    </>,
+  ];
+
   async function followFunction(follow: boolean) {
     const data = await getCookies();
     if (follow) {
@@ -103,9 +111,9 @@ export default function Home(props: { searchParams: { id: string } }) {
             ) : (
               <button
                 className={`${
-                  userData
+                  userData === 0
                     ? 'bg-black'
-                    : `${follow ? 'bg-green-500' : 'bg-gray-700'} `
+                    : `${follow ? 'bg-gray-700' : 'bg-green-500'} `
                 } w-32 py-3 rounded-xl`}
                 onClick={() => {
                   if (userData === 0) {
@@ -118,7 +126,7 @@ export default function Home(props: { searchParams: { id: string } }) {
                   followFunction(!follow);
                 }}
               >
-                {follow ? '팔로우' : '팔로우'}
+                {follow ? '팔로우됨' : '팔로우'}
               </button>
             )}
           </div>

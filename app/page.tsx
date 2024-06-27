@@ -360,36 +360,36 @@ export default function Home() {
           신입 스트리머 인사드립니다
           <div className='grid grid-cols-5'>
             {data?.map((o, i) => {
-              const isLastItem = i === data.length - 1;
-              return (
-                <Link
-                  key={i}
-                  href={{
-                    pathname: '/videolive',
-                    query: { url: o?.link },
-                  }}
-                >
-                  <button
-                    className={`hover:bg-gray-800 mt-3 w-[100%] ${
-                      isLastItem ? '' : 'mr-3'
-                    } `}
-                    //onClick={() => pageVideoMove(o?.link ?? '')}
+              if (i < 5)
+                return (
+                  <Link
+                    key={i}
+                    href={{
+                      pathname: '/videolive',
+                      query: { url: o?.link },
+                    }}
                   >
-                    <div className='flex flex-col justify-center items-center'>
-                      <ReactPlayer
-                        url={o?.link === null ? '' : o?.link}
-                        width='97%'
-                        height='12rem'
-                        playing={false}
-                        muted={true}
-                        controls={false}
-                        style={{ pointerEvents: 'none' }}
-                      />
-                    </div>
-                    <div className='text-start'>{o?.Name}</div>
-                  </button>
-                </Link>
-              );
+                    <button
+                      className={`hover:bg-gray-800 mt-3 w-[100%] ${
+                        i === 4 ? '' : 'mr-3'
+                      } `}
+                      //onClick={() => pageVideoMove(o?.link ?? '')}
+                    >
+                      <div className='flex flex-col justify-center items-center'>
+                        <ReactPlayer
+                          url={o?.link === null ? '' : o?.link}
+                          width='97%'
+                          height='12rem'
+                          playing={false}
+                          muted={true}
+                          controls={false}
+                          style={{ pointerEvents: 'none' }}
+                        />
+                      </div>
+                      <div className='text-start'>{o?.Name}</div>
+                    </button>
+                  </Link>
+                );
             })}
           </div>
         </div>

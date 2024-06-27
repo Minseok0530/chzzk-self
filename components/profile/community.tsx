@@ -96,7 +96,7 @@ export default function Page(post: { postData: string; state: string }) {
                       </div>
                       <div className='flex justify-between items-center'>
                         <span className='text-green-500 cursor-pointer'>
-                          댓글 1
+                          댓글 ?
                         </span>
                         <div className='flex items-center space-x-2'>
                           <button className='text-gray-500 hover:text-gray-400'></button>

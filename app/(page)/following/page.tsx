@@ -6,7 +6,7 @@ import { getCookies } from '../../../api/getcookie';
 import { useEffect, useState } from 'react';
 import supabase from '../../../api/supabase';
 import { Tables } from '../../../supabase';
-
+import Link from 'next/link';
 const font = Abel({
   weight: ['400'],
   subsets: ['latin'],
@@ -14,7 +14,16 @@ const font = Abel({
 
 export default function Page() {
   const [userId, setUserId] = useState('');
-  const [followData, setFollowData] = useState<Tables<'follow_table'>[]>([]);
+  const [toUserName, setUserName] = useState([]);
+  const [followData, setFollowData] = useState<
+    {
+      created_at: string;
+      from: number;
+      id: number;
+      to: number;
+      userData: string;
+    }[]
+  >([]);
   useEffect(() => {
     async function getLoginInfo() {
       const loginData = await getCookies();
@@ -22,20 +31,44 @@ export default function Page() {
     }
     getLoginInfo();
   }, []);
+
   useEffect(() => {
     async function followData() {
+      async function userNameGet(to: number) {
+        const { data } = await supabase
+          .from('user_table')
+          .select('*')
+          .eq('id', to)
+          .returns<Tables<'user_table'>[]>();
+      }
       const { data: userData } = await supabase
         .from('user_table')
         .select('*')
         .eq('user_name', userId)
         .returns<Tables<'user_table'>[]>();
+
       if (userData?.[0]) {
         const { data } = await supabase
           .from('follow_table')
           .select(' *')
           .eq('from', userData[0].id)
           .returns<Tables<'follow_table'>[]>();
-        if (data) setFollowData(data);
+        if (data) {
+          const userData = await supabase
+            .from('user_table')
+            .select('*')
+            .eq('id', data[0].to)
+            .returns<Tables<'user_table'>[]>();
+          const nameData = userData.data?.[0].user_name;
+
+          const combineData = data.map((o) => {
+            return {
+              ...o,
+              userData: nameData ? nameData : '',
+            };
+          });
+          setFollowData(combineData);
+        }
       }
     }
     followData();
@@ -83,9 +116,30 @@ export default function Page() {
                 카테고리
               </button>
             </div>
-            <div>
-              {followData.map((o) => {
-                return o.to;
+            <div className='flex'>
+              {followData.map((o, i) => {
+                return (
+                  <div key={i}>
+                    <Link
+                      className='flex flex-col'
+                      href={{
+                        pathname: '/profile',
+                        query: { id: o.to ? o.to : 1 },
+                      }}
+                    >
+                      <Image
+                        src={'/default_avatar/default_avatar.png'}
+                        width={100}
+                        height={100}
+                        alt=''
+                        className='rounded-full'
+                      />
+                      <div className='flex flex-col text-start'>
+                        <p className='text-lg text-center'>{o.userData}</p>
+                      </div>
+                    </Link>
+                  </div>
+                );
               })}
             </div>
           </div>
