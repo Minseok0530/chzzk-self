@@ -54,17 +54,22 @@ export default function Page() {
           .eq('from', userData[0].id)
           .returns<Tables<'follow_table'>[]>();
         if (data) {
-          const userData = await supabase
+          const { data: userDatas } = await supabase
             .from('user_table')
             .select('*')
-            .eq('id', data[0].to)
             .returns<Tables<'user_table'>[]>();
-          const nameData = userData.data?.[0].user_name;
 
-          const combineData = data.map((o) => {
+          const combineData = data.map((data) => {
+            const userNameData = userDatas?.find((o) => {
+              if (o.id === data.to) return o.user_name ? o.user_name : '';
+            })?.user_name;
+            const returnData = {
+              ...data,
+              userData: userNameData ? userNameData : '',
+            };
             return {
-              ...o,
-              userData: nameData ? nameData : '',
+              ...data,
+              userData: userNameData ? userNameData : '',
             };
           });
           setFollowData(combineData);
